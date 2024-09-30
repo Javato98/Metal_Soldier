@@ -22,7 +22,7 @@ class Environment():
         
         
 
-    def repeat(self, image, repeat,  eje_x, eje_y, direction='x'):
+    def repeat(self, image, repeat,  eje_x, eje_y, direction='x', id='p'):
         '''Repetimos la imagen las veces necesarias para crear la que nos interesa. 
         Debemos de tener en cuenta, que si 'direction' tiene el valor 'y', el orden 
         de los ejes se invertirán. La función retorna las las cordenadas del suelo, 
@@ -93,14 +93,20 @@ class Levels(Environment):
 
 
     def make_platforms(self):
+        stairs = False
 
         
         for platform in self.coord_level2:
             height = 0
+
+
             for coordinates in platform:
+
+
                 image, *params = coordinates  # Separa la imagen del resto de los parámetros        
 
                 self.repeat(image, *params)
+
 
                 if len(self.platform_sprites) < len(self.coord_level2):
                     try:
@@ -115,11 +121,18 @@ class Levels(Environment):
 
             if len(self.platform_sprites) < len(self.coord_level2):
                 
+
+                if 'stairs' in coordinates:
+                    stairs = True
+
+                
                 rect = pygame.Rect(x, y, width, height)
-                platform = Platform(rect)
+                if stairs:
+                    platform = Platform(rect, 'stairs')
+                else:
+                    platform = Platform(rect)
+                stairs = False
                 self.platform_sprites.add(platform)
-
-
 
         return self.platform_sprites
 

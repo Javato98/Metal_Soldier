@@ -69,6 +69,7 @@ class Metal_soldier():
         if event.key == pygame.K_UP:
             self.soldier.move_jump = True
 
+
         if event.key == pygame.K_DOWN:
             self.soldier.be_covered = True
 
@@ -114,7 +115,7 @@ class Metal_soldier():
 
     def bullet_detecter_colision(self):
         '''Detecta y elimina las balas que colisionan o que se salen de la pantalla'''
-        
+
         platforms = self.levels.make_platforms()
 
         collisions = pygame.sprite.groupcollide(self.bullets, platforms, True, False)

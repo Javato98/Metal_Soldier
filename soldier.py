@@ -23,12 +23,14 @@ class Soldier(Sprite):
         self.path_image_soldiers_jump = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_jump.png').__str__()
         self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
+        self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
         
 
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
         self.image_soldiers_be_covered = pygame.image.load(self.path_image_be_covered).convert_alpha()
         self.image_soldiers_knife_attack = pygame.image.load(self.path_image_knife_attack).convert_alpha()
+        self.image_crawl_stairs = pygame.image.load(self.path_image_crawl_stairs).convert_alpha()
 
 
 
@@ -90,6 +92,11 @@ class Soldier(Sprite):
         self.animation_knife_attack_front = []
         self.animation_knife_attack_back = []
         self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
+
+        # Animación de escalar escaleras
+        self.animation_crawl_stairs_front = []
+        self.animation_crawl_stairs_back = []
+        self.make_frames(self.image_crawl_stairs, self.animation_crawl_stairs_front, self.animation_crawl_stairs_back, 5)
 
 
 
@@ -211,7 +218,7 @@ class Soldier(Sprite):
 
 
     def _knife_attack(self, current_time):
-        '''Animación del ataque'''
+        '''Animación del ataque con cuchillo'''
 
         if self.knife_attack:
 
@@ -226,6 +233,33 @@ class Soldier(Sprite):
 
 
 
+    def check_stairs(self):
+        '''Comprobamos si el soldado está debajo o encima de las escaleras de las escaleras'''
+
+
+        platforms = self.levels.make_platforms()
+
+
+        for platform in platforms:
+            if platform.id == 'stairs':
+                print('hola')
+                print(platform.rect)
+                if self.rect.colliderect(platform.rect):  
+                    print('Eureka')
+
+
+
+
+    def _crawl_stairs(self):
+        '''Animación del subir y bajar escaleras'''
+        pass
+
+        
+
+
+
+
+
 
     def move(self, current_time):
         '''Agrupamos en esta función todas las animaciones de los movimientos del personaje'''
@@ -234,6 +268,7 @@ class Soldier(Sprite):
         self._move_jump(current_time)
         self._be_covered(current_time)
         self._knife_attack(current_time)
+        self.check_stairs()
 
 
 
@@ -242,7 +277,6 @@ class Soldier(Sprite):
         Esto lo generamos para saber si la gravedad tendrá que ejercer su fuerza o no.
         'drop' está a True de forma determinada por que la caida se lleva a cabo a no ser que la 
         condición diga la contrario'''
-
 
         platforms = self.levels.make_platforms()
 

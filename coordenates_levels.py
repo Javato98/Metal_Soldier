@@ -132,7 +132,7 @@ class Coordinates(EnvironmentFrames):
         ]
 
         stairs = [
-            (self.stairs, 3, 230, 520, 'y')
+            (self.stairs, 3, 230, 520, 'y', 'stairs')
         ]
 
 
@@ -159,7 +159,8 @@ class Coordinates(EnvironmentFrames):
 
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, rect):
+    def __init__(self, rect, id='platform'):
         super().__init__()
+        self.id = id
         self.image = pygame.Surface((rect.width, rect.height))
         self.rect = rect
