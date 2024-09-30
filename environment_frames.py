@@ -16,6 +16,7 @@ class EnvironmentFrames():
         self.path_land = Paths('resources\\Sunny-land-assets-files\\PNG\\environment\\layers\\land.png').__str__()
         self.path_stone_grass = Paths('resources\\Sunny-land-assets-files\\PNG\\environment\\layers\\stone_and_grass.png').__str__()
         self.path_cave_edges = Paths('resources\\Sunny-land-assets-files\\PNG\\environment\\layers\\cave_edges.png').__str__()
+        self.path_stairs= Paths('resources\\Sunny-land-assets-files\\PNG\\environment\\layers\\stairs.png').__str__()
 
         #Cargamos las imágenes
         self.image_back = pygame.image.load(self.path_back)
@@ -24,7 +25,7 @@ class EnvironmentFrames():
         self.stone_grass = pygame.image.load(self.path_stone_grass)
         self.cave_edges = pygame.image.load(self.path_cave_edges)
         
-   
+        self.stairs = pygame.image.load(self.path_stairs)
 
         
         
@@ -44,6 +45,7 @@ class EnvironmentFrames():
 
         #Acumentamos el tamaño de las imágenes
         self.image_back = self.increase(self.image_back, 1.6)
+        self.stairs = self.increase(self.stairs)
         self.land_up = self.increase_iteration(self.land_up)
         self.land_middle = self.increase_iteration(self.land_middle)
         self.land_down = self.increase_iteration(self.land_down)

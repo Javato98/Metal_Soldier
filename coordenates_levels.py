@@ -131,9 +131,13 @@ class Coordinates(EnvironmentFrames):
             (self.land_up[1], 31, 520, 580)
         ]
 
+        stairs = [
+            (self.stairs, 3, 230, 520, 'y')
+        ]
 
 
-        level = [platform1, platform2, platform3, platform4, platform5, platform6, platform7]
+
+        level = [platform1, platform2, platform3, platform4, platform5, platform6, platform7, stairs]
 
                     
 
