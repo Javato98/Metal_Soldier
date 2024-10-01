@@ -49,6 +49,8 @@ class Metal_soldier():
         if self.soldier.move_jump:
             return
         
+        check_stairs = self.soldier.check_stairs()
+        
         # Inicializamos el índice de los frames en 0 antes de cualquier evento
         self.soldier.frame_index = 0 
 
@@ -67,11 +69,17 @@ class Metal_soldier():
             
 
         if event.key == pygame.K_UP:
-            self.soldier.move_jump = True
+            if check_stairs:
+                self.soldier.move_stairs_up = True
+            else:
+                self.soldier.move_jump = True
 
 
         if event.key == pygame.K_DOWN:
-            self.soldier.be_covered = True
+            if check_stairs:
+                self.soldier.move_stairs_down = True
+            else:
+                self.soldier.be_covered = True
 
         if event.key == pygame.K_k:
             self.soldier.knife_attack = True
@@ -87,20 +95,30 @@ class Metal_soldier():
     def _events_keyup(self, event):
         '''Establecemos los eventos para cuando dejamos de pulsar las teclas'''
 
+        inside_stairs = False
+        check_stairs = self.soldier.check_stairs()
+
         if event.key == pygame.K_RIGHT:
             self.soldier.move_right = False
-
         
         if event.key == pygame.K_LEFT:
             self.soldier.move_left = False
 
+        if event.key == pygame.K_UP:
+            self.soldier.move_stairs_up = False
+            if check_stairs:
+                inside_stairs = True
 
         if event.key == pygame.K_DOWN:
+            self.soldier.move_stairs_down = False
             self.soldier.be_covered = False
 
+            if check_stairs:
+                inside_stairs = True
 
         if event.key and self.soldier.move_jump == False and self.soldier.knife_attack == False:
-            self.soldier.standar_position()
+            self.soldier.standar_position(inside_stairs)
+
 
 
 

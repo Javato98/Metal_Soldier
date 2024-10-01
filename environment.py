@@ -1,5 +1,5 @@
 import pygame
-from coordenates_levels import Coordinates, Platform
+from coordenates_levels import Coordinates, Platform, Stairs
 
 
 
@@ -98,6 +98,7 @@ class Levels(Environment):
         
         for platform in self.coord_level2:
             height = 0
+            width = 0
 
 
             for coordinates in platform:
@@ -111,12 +112,15 @@ class Levels(Environment):
                 if len(self.platform_sprites) < len(self.coord_level2):
                     try:
                         if coordinates[4] == 'y':
-                            pass
+                            height = coordinates[1] * 20
+                            width += 20
+                            x = coordinates[3]
+                            y = coordinates[2]
                     except:
-                        width = coordinates[1] * 20
-                        height = height + 20
-                        x = coordinates[2]
-                        y = coordinates[3] -height +20
+                            width = coordinates[1] * 20
+                            height += 20
+                            x = coordinates[2]
+                            y = coordinates[3] -height +20
 
 
             if len(self.platform_sprites) < len(self.coord_level2):
@@ -128,7 +132,7 @@ class Levels(Environment):
                 
                 rect = pygame.Rect(x, y, width, height)
                 if stairs:
-                    platform = Platform(rect, 'stairs')
+                    platform = Stairs(rect)
                 else:
                     platform = Platform(rect)
                 stairs = False

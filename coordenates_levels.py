@@ -159,7 +159,15 @@ class Coordinates(EnvironmentFrames):
 
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, rect, id='platform'):
+    def __init__(self, rect):
+        super().__init__()
+        self.id = id
+        self.image = pygame.Surface((rect.width, rect.height))
+        self.rect = rect
+
+
+class Stairs(pygame.sprite.Sprite):
+    def __init__(self, rect):
         super().__init__()
         self.id = id
         self.image = pygame.Surface((rect.width, rect.height))

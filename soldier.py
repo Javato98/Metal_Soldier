@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 from settings import Settings
 from paths import Paths
+from environment import Platform, Stairs
 
 
 class Soldier(Sprite):
@@ -62,10 +63,10 @@ class Soldier(Sprite):
         self.move_jump = False
         self.be_covered = False
         self.knife_attack = False
+        self.move_stairs_up = False
+        self.move_stairs_down = False
         
         
-    
-
 
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
 
@@ -131,14 +132,17 @@ class Soldier(Sprite):
 
 
 
-    def standar_position(self):
+    def standar_position(self, inside_stairs):
         '''Después de cada animación le establecemos una postura estandar al personaje'''
 
         if self.look_right:
             self.image = self.animation_run_front[3]
 
-        if self.look_right == False:
+        elif self.look_right == False:
             self.image = self.animation_run_back[3]
+
+        if inside_stairs:
+            self.image = self.animation_crawl_stairs_back[3]
 
 
 
@@ -225,7 +229,7 @@ class Soldier(Sprite):
             if self.look_right:
                 self.animation(self.animation_knife_attack_front, current_time)
 
-            if self.look_right == False:
+            elif self.look_right == False:
                 self.animation(self.animation_knife_attack_back, current_time)
 
             if self.frame_index == 0:
@@ -236,28 +240,35 @@ class Soldier(Sprite):
     def check_stairs(self):
         '''Comprobamos si el soldado está debajo o encima de las escaleras de las escaleras'''
 
-
         platforms = self.levels.make_platforms()
 
+        for platform in platforms:
+            if isinstance(platform, Stairs):
+                if self.rect.colliderect(platform.rect):
+                    return True
+
+
+
+
+    def _crawl_stairs(self, current_time):
+        '''Animación del subir y bajar escaleras'''
+
+        platforms = self.levels.make_platforms()
+        check_stairs = self.check_stairs()
 
         for platform in platforms:
-            if platform.id == 'stairs':
-                print('hola')
-                print(platform.rect)
-                if self.rect.colliderect(platform.rect):  
-                    print('Eureka')
-
-
-
-
-    def _crawl_stairs(self):
-        '''Animación del subir y bajar escaleras'''
-        pass
-
+            if isinstance(platform, Stairs):
+                stairs = platform
         
+                if self.move_stairs_down and check_stairs:
+                    self.animation(self.animation_crawl_stairs_back, current_time)
+                    self.rect.x = stairs.rect.x - 30
+                    self.rect.y += 1
 
-
-
+                elif self.move_stairs_up:
+                    self.animation(self.animation_crawl_stairs_front, current_time)
+                    self.rect.x = stairs.rect.x - 15
+                    self.rect.y -= 1
 
 
 
@@ -268,7 +279,7 @@ class Soldier(Sprite):
         self._move_jump(current_time)
         self._be_covered(current_time)
         self._knife_attack(current_time)
-        self.check_stairs()
+        self._crawl_stairs(current_time)
 
 
 
