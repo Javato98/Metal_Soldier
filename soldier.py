@@ -71,44 +71,46 @@ class Soldier(Sprite):
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
 
         # Animación de correr
-        self.animation_run = self.make_frames(self.image_soldiers_run, self.animation_run_front, self.animation_run_back, 8)
-        self.animation_run_front = self.animation_run[0]
-        self.animation_run_back = self.animation_run[1]
+        self.animation_run_front = []
+        self.animation_run_back = []
         
         # Animación de saltar
-        self.animation_jump = self.make_frames(self.image_soldiers_jump,  self.animation_jump_front, self.animation_jump_back, 2)   # Ascenso del salto
-        self.animation_jump = self.make_frames(self.image_soldiers_jump, self.animation_jump_front, self.animation_jump_back, -1, 2, -1)    # Aterrizaje del salto
-        self.animation_jump_front = self.animation_jump[0]
-        self.animation_jump_back = self.animation_jump[1]
+        self.animation_jump_front = []
+        self.animation_jump_back = []
 
         # Animación de estar a cubierto
         self.animation_be_covered_front = []
         self.animation_be_covered_back = []
-        self.make_frames(self.image_soldiers_be_covered, self.animation_be_covered_front, self.animation_be_covered_back, 1)
-        self.animation_be_covered_front.insert(0, self.animation_jump_front[0])
-        self.animation_be_covered_back.insert(0, self.animation_jump_back[0])
-
+        
 
         # Animación de ataque con cuchillo
         self.animation_knife_attack_front = []
         self.animation_knife_attack_back = []
-        self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
 
         # Animación de escalar escaleras
         self.animation_crawl_stairs_front = []
         self.animation_crawl_stairs_back = []
+
+
+        # Creamos las animaciones
+        self.animation_run = self.make_frames(self.image_soldiers_run, self.animation_run_front, self.animation_run_back, 8)
+        self.animation_jump = self.make_frames(self.image_soldiers_jump,  self.animation_jump_front, self.animation_jump_back, 2)   # Ascenso del salto
+        self.animation_jump = self.make_frames(self.image_soldiers_jump, self.animation_jump_front, self.animation_jump_back, -1, 2, -1)    # Aterrizaje del salto
+        self.make_frames(self.image_soldiers_be_covered, self.animation_be_covered_front, self.animation_be_covered_back, 1)
+        self.animation_be_covered_front.insert(0, self.animation_jump_front[0])
+        self.animation_be_covered_back.insert(0, self.animation_jump_back[0])
+        
+        self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
         self.make_frames(self.image_crawl_stairs, self.animation_crawl_stairs_front, self.animation_crawl_stairs_back, 5)
 
-
-
-
+        # Eliminamos la lista de la animación de bajar la escalera porque no la necesitamos
+        del self.animation_crawl_stairs_front
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-
         self.rect.x = 150
         
-
+        self.stairs_rect = self.save_stairs_rect()
 
         self.drop = False
 
@@ -143,7 +145,6 @@ class Soldier(Sprite):
 
         if inside_stairs:
             self.image = self.animation_crawl_stairs_back[3]
-
 
 
 
@@ -247,6 +248,17 @@ class Soldier(Sprite):
                 if self.rect.colliderect(platform.rect):
                     return True
 
+                
+    
+    def save_stairs_rect(self):
+
+        platforms = self.levels.make_platforms()
+
+        for platform in platforms:
+            if isinstance(platform, Stairs):
+                stairs = platform
+                stairs_rect = stairs.rect
+                return stairs_rect
 
 
 
@@ -266,8 +278,8 @@ class Soldier(Sprite):
                     self.rect.y += 1
 
                 elif self.move_stairs_up:
-                    self.animation(self.animation_crawl_stairs_front, current_time)
-                    self.rect.x = stairs.rect.x - 15
+                    self.animation(self.animation_crawl_stairs_back, current_time)
+                    self.rect.x = stairs.rect.x - 30
                     self.rect.y -= 1
 
 
