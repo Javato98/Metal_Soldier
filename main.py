@@ -114,6 +114,7 @@ class Metal_soldier():
             self.soldier.be_covered = False
 
             if check_stairs:
+                self.look_right = False
                 inside_stairs = True
 
         if event.key and self.soldier.move_jump == False and self.soldier.knife_attack == False:

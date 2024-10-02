@@ -137,13 +137,14 @@ class Soldier(Sprite):
     def standar_position(self, inside_stairs):
         '''Después de cada animación le establecemos una postura estandar al personaje'''
 
+        
         if self.look_right:
             self.image = self.animation_run_front[3]
 
         elif self.look_right == False:
             self.image = self.animation_run_back[3]
 
-        if inside_stairs:
+        if inside_stairs and (self.rect.bottom -9 >= self.stairs_rect.top or self.rect.top > self.stairs_rect.bottom):
             self.image = self.animation_crawl_stairs_back[3]
 
 
@@ -277,7 +278,7 @@ class Soldier(Sprite):
                     self.rect.x = stairs.rect.x - 30
                     self.rect.y += 1
 
-                elif self.move_stairs_up:
+                elif self.move_stairs_up and self.rect.bottom -9 >= self.stairs_rect.top:
                     self.animation(self.animation_crawl_stairs_back, current_time)
                     self.rect.x = stairs.rect.x - 30
                     self.rect.y -= 1
