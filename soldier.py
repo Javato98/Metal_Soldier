@@ -15,27 +15,25 @@ class Soldier(Sprite):
         self.environment = ms_game.environment
         self.levels = ms_game.levels
 
-
         self.screen = ms_game.screen
         self.screen_rect = self.screen.get_rect()
-
 
         self.path_image_soldiers_run = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_run.png').__str__()
         self.path_image_soldiers_jump = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_jump.png').__str__()
         self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
+        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia4.png').__str__()
         
-
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
         self.image_soldiers_be_covered = pygame.image.load(self.path_image_be_covered).convert_alpha()
         self.image_soldiers_knife_attack = pygame.image.load(self.path_image_knife_attack).convert_alpha()
         self.image_crawl_stairs = pygame.image.load(self.path_image_crawl_stairs).convert_alpha()
+        self.image_die = pygame.image.load(self.path_image_die).convert_alpha()
 
 
 
-        
         # VARIABLES DE ANIMACIÓN
 
         # Animación de correr
@@ -48,12 +46,10 @@ class Soldier(Sprite):
         self.animation_jump_front = []
         self.animation_jump_back = []
 
-
         # Variables para llevar a cabo la animación
         self.frame_index = 0
         self.frame_timer = 0
         self.fame_delay = 100
-
 
         # Banderas de movimiento 
         self.move_right = False
@@ -65,9 +61,9 @@ class Soldier(Sprite):
         self.knife_attack = False
         self.move_stairs_up = False
         self.move_stairs_down = False
+        self.dead = False
         
         
-
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
 
         # Animación de correr
@@ -81,7 +77,6 @@ class Soldier(Sprite):
         # Animación de estar a cubierto
         self.animation_be_covered_front = []
         self.animation_be_covered_back = []
-        
 
         # Animación de ataque con cuchillo
         self.animation_knife_attack_front = []
@@ -91,6 +86,9 @@ class Soldier(Sprite):
         self.animation_crawl_stairs_front = []
         self.animation_crawl_stairs_back = []
 
+        # Animación de morir
+        self.animation_die_front = []
+        self.animation_die_back = []
 
         # Creamos las animaciones
         self.animation_run = self.make_frames(self.image_soldiers_run, self.animation_run_front, self.animation_run_back, 8)
@@ -102,6 +100,8 @@ class Soldier(Sprite):
         
         self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
         self.make_frames(self.image_crawl_stairs, self.animation_crawl_stairs_front, self.animation_crawl_stairs_back, 5)
+
+        self.make_frames(self.image_die, self.animation_die_front, self.animation_die_back, 7)
 
         # Eliminamos la lista de la animación de bajar la escalera porque no la necesitamos
         del self.animation_crawl_stairs_front
@@ -179,7 +179,6 @@ class Soldier(Sprite):
                 self.rect.x -= self.settings.displace_x
                 if self.move_jump == False:
                     self.animation(self.animation_run_back, current_time)
-
 
 
 
@@ -293,6 +292,7 @@ class Soldier(Sprite):
         self._be_covered(current_time)
         self._knife_attack(current_time)
         self._crawl_stairs(current_time)
+        self._die(current_time)
 
 
 
@@ -315,10 +315,7 @@ class Soldier(Sprite):
             margin = -10
             margin_right = -30
 
-
-
         self.drop = True
-
 
         for platform in platforms:
 
@@ -343,6 +340,17 @@ class Soldier(Sprite):
 
         if self.drop == True:
             self.rect.y += 10
+
+
+
+    def _die(self, current_time):
+        if self.dead:
+            if self.look_right:
+                self.animation(self.animation_die_front, current_time) 
+
+            elif self.look_right == False:
+                self.animation(self.animation_die_back, current_time)
+
 
 
     def blitme(self):    

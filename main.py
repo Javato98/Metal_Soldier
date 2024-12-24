@@ -5,6 +5,7 @@ from settings import Settings
 from soldier import Soldier 
 from bullet import Bullet
 from environment import Environment, Levels
+from enemies import Enemy
 
 
 class Metal_soldier():
@@ -19,6 +20,7 @@ class Metal_soldier():
         self.environment = Environment(self)
         self.levels = Levels(self)
         self.soldier = Soldier(self)
+        self.enemie1 = Enemy(self, 1)
         self.bullets = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
         
@@ -189,7 +191,6 @@ class Metal_soldier():
     
             pygame.display.flip()
             self.clock.tick(45) # Mantén un framerate constante de 60 FPS
-
 
 
 ms_game = Metal_soldier()
