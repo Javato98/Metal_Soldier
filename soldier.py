@@ -49,7 +49,6 @@ class Soldier(Sprite):
         # Variables para llevar a cabo la animación
         self.frame_index = 0
         self.frame_timer = 0
-        self.fame_delay = 100
 
         # Banderas de movimiento 
         self.move_right = False
@@ -137,7 +136,6 @@ class Soldier(Sprite):
     def standar_position(self, inside_stairs):
         '''Después de cada animación le establecemos una postura estandar al personaje'''
 
-        
         if self.look_right:
             self.image = self.animation_run_front[3]
 
@@ -174,7 +172,6 @@ class Soldier(Sprite):
                 if self.move_jump == False:
                     self.animation(self.animation_run_front, current_time)
 
-
             if self.move_left and self.rect.left > -20 and self.drop == False:
                 self.rect.x -= self.settings.displace_x
                 if self.move_jump == False:
@@ -182,13 +179,10 @@ class Soldier(Sprite):
 
 
 
-
     def _move_jump(self, current_time):
         '''Animación del salto'''
 
-
         if self.move_jump and self.drop == False:
-            
 
             animation_jump_front_copy = self.animation_jump_front   # Creamos una copia para guardar según la dirección una animación u otra
 
@@ -200,7 +194,6 @@ class Soldier(Sprite):
                 
             elif self.frame_index == 4:
                 self.move_jump = False
-                
             
             self.animation(animation_jump_front_copy, current_time)
 
@@ -297,12 +290,13 @@ class Soldier(Sprite):
 
 
     def detecter_collision(self):
-        '''Esta función comprueba si el personaje se encuentra en la superficie de una platarforma o no.
+        '''Esta función comprueba si el personaje se encuentra en la superficie de una plataforma o no.
         Esto lo generamos para saber si la gravedad tendrá que ejercer su fuerza o no.
         'drop' está a True de forma determinada por que la caida se lleva a cabo a no ser que la 
         condición diga la contrario'''
 
         platforms = self.levels.make_platforms()
+
 
         # Ajustamos los píxeles por que el rect del soldado no está proporcionado con sus pies, 
         if self.move_right or self.look_right:
@@ -331,7 +325,7 @@ class Soldier(Sprite):
                     self.move_right = False
         
                 # Detecta la colision desde la derecha
-                elif self.rect.left < platform.rect.right and self.rect.bottom-10 > platform.rect.top  and self.move_jump==False:
+                elif self.rect.left < platform.rect.right and self.rect.bottom-10 > platform.rect.top  and self.move_jump == False:
                     self.move_left = False
                     
         # Que la gravedad no afecta al soldado durante el salto hasta que este se encuentre en el aire        
@@ -356,6 +350,6 @@ class Soldier(Sprite):
     def blitme(self):    
 
         self.screen.blit(self.image, self.rect)
-        #pygame.draw.rect(self.screen, (255,0,0), self.rect)
+        # pygame.draw.rect(self.screen, (255,0,0), self.rect)
 
     

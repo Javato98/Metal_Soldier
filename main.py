@@ -18,14 +18,13 @@ class Metal_soldier():
         self.settings = Settings()
         self.screen = self.settings.screen
         self.environment = Environment(self)
-        self.levels = Levels(self)
+        self.levels = Levels(self, 2, ((500, 300), (700, 100)))
         self.soldier = Soldier(self)
-        self.enemie1 = Enemy(self, 1)
         self.bullets = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
-        
 
-
+        self.make_enemies()
 
 
     def check_events(self):
@@ -122,9 +121,6 @@ class Metal_soldier():
         if event.key and self.soldier.move_jump == False and self.soldier.knife_attack == False:
             self.soldier.standar_position(inside_stairs)
 
-
-
-
     
 
     def fire_bullet(self):
@@ -132,6 +128,7 @@ class Metal_soldier():
 
         new_bullet = Bullet(self)
         self.bullets.add(new_bullet)
+
 
 
     def bullet_detecter_colision(self):
@@ -153,6 +150,33 @@ class Metal_soldier():
         self.bullet_detecter_colision()
 
 
+    def knife_kill(self):
+        for enemy in self.enemies.sprites():
+            if self.soldier.rect.colliderect(enemy) and self.soldier.knife_attack:
+                enemy.dead = True
+
+    
+    def bullet_kill(self):
+
+        for bullet in self.bullets:
+            for enemy in self.enemies:
+                if bullet.rect.colliderect(enemy):
+                    self.bullets.remove(bullet) 
+                    enemy.be_shot += 1
+
+ 
+    def kill_enemy(self):
+        self.knife_kill()
+        self.bullet_kill()
+
+
+        
+    def make_enemies(self):
+
+        for i in range(2):
+            enemy = Enemy(self, 1, self.levels.coodinates_enemies[i][0], self.levels.coodinates_enemies[i][1])
+            self.enemies.add(enemy)
+
 
 
     
@@ -168,14 +192,17 @@ class Metal_soldier():
 
 
         self.soldier.detecter_collision()
+        self.kill_enemy()
 
         self.soldier.move(current_time)
+        self.enemies.update(current_time)
 
 
         for bullet in self.bullets.sprites():
             bullet.blitme()    # Dibujamos las balas
 
-        
+        for enemy in self.enemies.sprites():
+            enemy.blitme()
 
 
     
