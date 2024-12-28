@@ -80,8 +80,11 @@ class Environment():
         
 class Levels(Environment):
 
-    def __init__(self, ms_game):
+    def __init__(self, ms_game, enemies_count, coordinates_enemies):
         super().__init__(ms_game)
+
+        self.enemies_count = enemies_count
+        self.coodinates_enemies = coordinates_enemies
 
     
     def background(self):
