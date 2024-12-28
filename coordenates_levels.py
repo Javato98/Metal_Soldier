@@ -112,13 +112,6 @@ class Coordinates(EnvironmentFrames):
         platform5 = [
             (self.land_down[1], 4, 80, 270)]
 
-        
-
-        platform6 = [
-            (self.land_up[2], 9, 400, 540),
-            (self.land_middle[1], 9, 400, 560),
-            (self.land_down[1], 9, 400, 580)
-        ]
 
         platform6 = [
             (self.land_up[2], 9, 400, 540),
@@ -128,7 +121,7 @@ class Coordinates(EnvironmentFrames):
 
 
         platform7 = [
-            (self.land_up[1], 31, 520, 580)
+            (self.land_up[1], 26, 580, 580)
         ]
 
         stairs = [
