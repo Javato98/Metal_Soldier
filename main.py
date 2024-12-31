@@ -24,6 +24,8 @@ class Metal_soldier():
         self.enemies = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
 
+        self.last_shot_enemy = 0
+     
         self.make_enemies()
 
 
@@ -87,7 +89,7 @@ class Metal_soldier():
 
 
         if event.key == pygame.K_SPACE:
-            self.fire_bullet()
+            self.fire_bullet(self.soldier)
 
 
 
@@ -121,13 +123,6 @@ class Metal_soldier():
         if event.key and self.soldier.move_jump == False and self.soldier.knife_attack == False:
             self.soldier.standar_position(inside_stairs)
 
-    
-
-    def fire_bullet(self):
-        '''Creamos la bala y la añadimos a la lista'''
-
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
 
 
 
@@ -143,6 +138,27 @@ class Metal_soldier():
                 self.bullets.remove(bullet)     # Eliminamos la bala que sobresale por la pantalla
 
 
+    
+    def fire_bullet(self, character):
+        '''Creamos la bala y le damos una frecuencia de disparo si es el enemigo'''
+
+        def create_bullet(self, character):
+            '''Creamos la bala y la añadimos a la lista'''
+            new_bullet = Bullet(self, character)
+            self.bullets.add(new_bullet)
+            
+
+        if character != self.soldier:
+            if self.current_time - self.last_shot_enemy > 600:
+                create_bullet(self, character)
+                self.last_shot_enemy = self.current_time
+
+        else:
+            create_bullet(self, character)
+
+
+
+
     def update_bullet(self):
         '''Actualizamos las balas'''
 
@@ -150,22 +166,28 @@ class Metal_soldier():
         self.bullet_detecter_colision()
 
 
+
     def knife_kill(self):
+        '''Apuñalamos al enemigo'''
         for enemy in self.enemies.sprites():
             if self.soldier.rect.colliderect(enemy) and self.soldier.knife_attack:
                 enemy.dead = True
 
     
+
     def bullet_kill(self):
+        '''Disparamos al enemigo'''
 
         for bullet in self.bullets:
-            for enemy in self.enemies:
-                if bullet.rect.colliderect(enemy):
-                    self.bullets.remove(bullet) 
-                    enemy.be_shot += 1
+            if bullet.character == self.soldier:
+                for enemy in self.enemies:
+                    if bullet.rect.colliderect(enemy):
+                        self.bullets.remove(bullet) 
+                        enemy.be_shot += 1
 
- 
+
     def kill_enemy(self):
+        '''Muertes del enemigo, apuñalado o disparado'''
         self.knife_kill()
         self.bullet_kill()
 
@@ -179,11 +201,34 @@ class Metal_soldier():
 
 
 
+    def detect_soldier(self):
+        '''El enemigo detecta al soldado y dispara'''
+
+        for enemy in self.enemies:
+            if (enemy.rect.y - self.soldier.rect.y) <= 10 and (enemy.rect.y - self.soldier.rect.y) >= -10:
+                if enemy.detect_soldier == False:
+                    enemy.detect_soldier = True
+                    enemy.frame_index = 0
+                self.fire_bullet(enemy)
+            else:
+                enemy.detect_soldier = False
+
+
+    def kill_us(self):
+        '''Disparamos al enemigo'''
+
+        for bullet in self.bullets:
+            if bullet.character != self.soldier:
+                if bullet.rect.colliderect(self.soldier):
+                    self.bullets.remove(bullet) 
+                    self.soldier.be_shot += 1
+
+
     
     def update_screen(self):
         '''Actualizamos los cambios que se van realizando durante el juego'''
 
-        current_time = pygame.time.get_ticks()  # Obtiene el tiempo actual en millisegundos
+        self.current_time = pygame.time.get_ticks()  # Obtiene el tiempo actual en millisegundos
 
         self.screen.fill(self.settings.bg_screen) # Actualiza el color del fondo de la pantalla
         
@@ -193,16 +238,20 @@ class Metal_soldier():
 
         self.soldier.detecter_collision()
         self.kill_enemy()
+        self.kill_us()
 
-        self.soldier.move(current_time)
-        self.enemies.update(current_time)
+        self.soldier.move(self.current_time)
+        self.enemies.update(self.current_time)
+        self.detect_soldier()
 
+        self.update_bullet()
 
         for bullet in self.bullets.sprites():
             bullet.blitme()    # Dibujamos las balas
 
         for enemy in self.enemies.sprites():
             enemy.blitme()
+
 
 
     
@@ -212,7 +261,6 @@ class Metal_soldier():
         while True:
             
             self.check_events()
-            self.update_bullet()
             self.update_screen()
             self.soldier.blitme()
     

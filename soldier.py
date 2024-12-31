@@ -23,7 +23,7 @@ class Soldier(Sprite):
         self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
-        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia4.png').__str__()
+        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia3.png').__str__()
         
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
@@ -100,7 +100,7 @@ class Soldier(Sprite):
         self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
         self.make_frames(self.image_crawl_stairs, self.animation_crawl_stairs_front, self.animation_crawl_stairs_back, 5)
 
-        self.make_frames(self.image_die, self.animation_die_front, self.animation_die_back, 7)
+        self.make_frames(self.image_die, self.animation_die_front, self.animation_die_back, 8)
 
         # Eliminamos la lista de la animación de bajar la escalera porque no la necesitamos
         del self.animation_crawl_stairs_front
@@ -112,6 +112,7 @@ class Soldier(Sprite):
         self.stairs_rect = self.save_stairs_rect()
 
         self.drop = False
+        self.be_shot = 0
 
 
     
@@ -338,12 +339,21 @@ class Soldier(Sprite):
 
 
     def _die(self, current_time):
+        if self.be_shot == 3:
+            self.dead = True
+
         if self.dead:
             if self.look_right:
                 self.animation(self.animation_die_front, current_time) 
 
             elif self.look_right == False:
                 self.animation(self.animation_die_back, current_time)
+
+        # if self.dead and self.frame_index == 6:
+        #     self.rect.x = 150
+        #     self.rect.y = 0
+        #     self.be_shot = 0
+        #     self.dead = False
 
 
 
