@@ -136,8 +136,59 @@ class Coordinates(EnvironmentFrames):
 
 
         return level
-
     
+
+    def level3(self):
+
+        platform1 = [
+            (self.land_up[2], 9, 0, 600),
+            (self.land_middle[1], 9, 0, 620),
+            (self.land_middle[1], 9, 0, 640),
+            (self.land_middle[1], 9, 0, 660),
+            (self.land_middle[1], 9, 0, 680),
+            (self.land_middle[1], 9, 0, 700),
+            (self.land_middle[1], 9, 0, 720),
+            (self.land_middle[1], 9, 0, 740),
+            (self.land_middle[1], 9, 0, 760),
+            (self.land_middle[1], 9, 0, 780),
+            (self.land_middle[1], 9, 0, 800)
+
+            # (self.land_middle[1], 9, 620, 40, 'y'),
+            # (self.land_middle[1], 9, 620, 60, 'y'),
+            # (self.land_middle[1], 9, 620, 80, 'y'),
+            # (self.land_middle[1], 9, 620, 100, 'y'),
+            # (self.land_middle[1], 9, 620, 120, 'y'),
+            # (self.land_middle[1], 9, 620, 140, 'y'),
+            # (self.land_middle[2], 9, 620, 160, 'y'),
+
+        ]
+        
+
+        platform2 = [
+            (self.land_up[2], 1, 400, 600)
+        ]
+
+        platform3 = [
+            (self.land_up[2], 6, 700, 600), 
+            (self.land_up[2], 6, 700, 620),
+            (self.land_up[2], 6, 700, 640),
+            (self.land_up[2], 6, 700, 660),
+            (self.land_up[2], 6, 700, 680),
+            (self.land_up[2], 6, 700, 700)
+        ]
+
+        platform4 = [
+            (self.land_up[2], 6, 900, 600), 
+            (self.land_up[2], 6, 900, 620),
+            (self.land_up[2], 6, 900, 640),
+            (self.land_up[2], 6, 900, 660),
+            (self.land_up[2], 6, 900, 680),
+            (self.land_up[2], 6, 900, 700)
+        ]
+
+        level = [platform1, platform2, platform3, platform4]
+
+        return level
 
     # self.repeat(self.cave_edges_up[0], 44, 320, 350)
     # self.repeat(self.cave_edges_middle[0], 44, 320, 370)

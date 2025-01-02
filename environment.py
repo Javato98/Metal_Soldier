@@ -17,7 +17,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level2 = self.coordinates.level2()
+        self.coord_level = self.coordinates.level3()
 
         
         
@@ -99,7 +99,7 @@ class Levels(Environment):
         stairs = False
 
         
-        for platform in self.coord_level2:
+        for platform in self.coord_level:
             height = 0
             width = 0
 
@@ -112,7 +112,7 @@ class Levels(Environment):
                 self.repeat(image, *params)
 
 
-                if len(self.platform_sprites) < len(self.coord_level2):
+                if len(self.platform_sprites) < len(self.coord_level):
                     try:
                         if coordinates[4] == 'y':
                             height = coordinates[1] * 20
@@ -126,7 +126,7 @@ class Levels(Environment):
                             y = coordinates[3] -height +20
 
 
-            if len(self.platform_sprites) < len(self.coord_level2):
+            if len(self.platform_sprites) < len(self.coord_level):
                 
 
                 if 'stairs' in coordinates:
@@ -140,6 +140,7 @@ class Levels(Environment):
                     platform = Platform(rect)
                 stairs = False
                 self.platform_sprites.add(platform)
+
 
         return self.platform_sprites
 

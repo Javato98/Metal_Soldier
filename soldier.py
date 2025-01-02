@@ -107,7 +107,7 @@ class Soldier(Sprite):
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-        self.rect.x = 150
+        self.rect.x = 100
         self.animation_frame = self.animation_run_front
         
         self.stairs_rect = self.save_stairs_rect()
@@ -350,7 +350,7 @@ class Soldier(Sprite):
             self.animation(self.animation_frame, current_time)
 
         if self.dead and self.frame_index == 7:
-            self.rect.x = 150
+            self.rect.x = 100
             self.rect.y = 0
             self.be_shot = 0
             self.dead = False
@@ -361,6 +361,11 @@ class Soldier(Sprite):
     def blitme(self):    
 
         self.screen.blit(self.image, self.rect)
-        # pygame.draw.rect(self.screen, (255,0,0), self.rect)
+
+        platforms = self.levels.make_platforms()
+
+        # for platform in platforms:
+
+        #     pygame.draw.rect(self.screen, (255,0,0), platform.rect)
 
     
