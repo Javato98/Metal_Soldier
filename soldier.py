@@ -23,7 +23,7 @@ class Soldier(Sprite):
         self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
-        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia3.png').__str__()
+        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia4.png').__str__()
         
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
@@ -107,7 +107,8 @@ class Soldier(Sprite):
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-        self.rect.x = 150
+        self.rect.x = 100
+        self.animation_frame = self.animation_run_front
         
         self.stairs_rect = self.save_stairs_rect()
 
@@ -134,15 +135,17 @@ class Soldier(Sprite):
 
 
 
-    def standar_position(self, inside_stairs):
+    def standar_position(self, animation_front, animation_back):
         '''Después de cada animación le establecemos una postura estandar al personaje'''
 
         if self.look_right:
-            self.image = self.animation_run_front[3]
+            self.animation_frame = animation_front
 
-        elif self.look_right == False:
-            self.image = self.animation_run_back[3]
+        else:
+            self.animation_frame = animation_back
 
+
+    def detect_stairs(self, inside_stairs):
         if inside_stairs and (self.rect.bottom -9 >= self.stairs_rect.top or self.rect.top > self.stairs_rect.bottom):
             self.image = self.animation_crawl_stairs_back[3]
 
@@ -168,7 +171,7 @@ class Soldier(Sprite):
             else:
                 self.settings.displace_x = 3
 
-            if self.move_right and self.rect.right < self.screen_rect.right + 20 and self.drop == False: #limites
+            if self.move_right and self.rect.right < self.screen_rect.right + 20 and self.drop == False: # Ajustamos limites
                 self.rect.x += self.settings.displace_x
                 if self.move_jump == False:
                     self.animation(self.animation_run_front, current_time)
@@ -185,10 +188,7 @@ class Soldier(Sprite):
 
         if self.move_jump and self.drop == False:
 
-            animation_jump_front_copy = self.animation_jump_front   # Creamos una copia para guardar según la dirección una animación u otra
-
-            if self.move_left or self.look_right == False:
-                animation_jump_front_copy = self.animation_jump_back
+            self.standar_position(self.animation_jump_front, self.animation_jump_back)
 
             if self.frame_index == 2:
                 self.rect.y -= self.settings.displace_y 
@@ -196,7 +196,7 @@ class Soldier(Sprite):
             elif self.frame_index == 4:
                 self.move_jump = False
             
-            self.animation(animation_jump_front_copy, current_time)
+            self.animation(self.animation_frame, current_time)
 
 
 
@@ -205,14 +205,17 @@ class Soldier(Sprite):
         '''Animación en la que el personaje se tira al suelo para estar a cubierto'''
 
         if self.be_covered:
-            if self.look_right:
-                self.animation(self.animation_be_covered_front, current_time)
-            
-            else:
-                self.animation(self.animation_be_covered_back, current_time)
+
+            self.standar_position(self.animation_be_covered_front, self.animation_be_covered_back)
+
+            self.animation(self.animation_frame, current_time)
 
             if self.frame_index == 0: # Para que se mantenga tendido en el suelo
                 self.frame_index = 1
+
+        else:
+            self.standar_position(self.animation_be_covered_front, self.animation_be_covered_back)
+
 
 
 
@@ -221,11 +224,9 @@ class Soldier(Sprite):
 
         if self.knife_attack:
 
-            if self.look_right:
-                self.animation(self.animation_knife_attack_front, current_time)
+            self.standar_position(self.animation_knife_attack_front, self.animation_knife_attack_back)
 
-            elif self.look_right == False:
-                self.animation(self.animation_knife_attack_back, current_time)
+            self.animation(self.animation_frame, current_time)
 
             if self.frame_index == 0:
                 self.knife_attack = False
@@ -339,27 +340,32 @@ class Soldier(Sprite):
 
 
     def _die(self, current_time):
-        if self.be_shot == 3:
+        if self.be_shot >= 3 and self.dead == False:
+            self.frame_index = 0
             self.dead = True
 
         if self.dead:
-            if self.look_right:
-                self.animation(self.animation_die_front, current_time) 
+            self.standar_position(self.animation_die_front, self.animation_die_back)
 
-            elif self.look_right == False:
-                self.animation(self.animation_die_back, current_time)
+            self.animation(self.animation_frame, current_time)
 
-        # if self.dead and self.frame_index == 6:
-        #     self.rect.x = 150
-        #     self.rect.y = 0
-        #     self.be_shot = 0
-        #     self.dead = False
+        if self.dead and self.frame_index == 7:
+            self.rect.x = 100
+            self.rect.y = 0
+            self.be_shot = 0
+            self.dead = False
+            self.image = self.animation_run_front[3]
 
 
 
     def blitme(self):    
 
         self.screen.blit(self.image, self.rect)
-        # pygame.draw.rect(self.screen, (255,0,0), self.rect)
+
+        platforms = self.levels.make_platforms()
+
+        # for platform in platforms:
+
+        #     pygame.draw.rect(self.screen, (255,0,0), platform.rect)
 
     
