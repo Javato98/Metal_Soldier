@@ -47,15 +47,6 @@ class Metal_soldier():
 
     def _events_keydown(self, event):
         '''Establecemos los eventos para cuando pulsamos las teclas'''
-        
-        # Ignorar entrada si el soldado está en el aire
-        if self.soldier.move_jump:
-            return
-        
-        check_stairs = self.soldier.check_stairs()
-        
-        # Inicializamos el índice de los frames en 0 antes de cualquier evento
-        self.soldier.frame_index = 0 
 
         if event.key == pygame.K_RIGHT:
             self.soldier.move_right = True
@@ -69,6 +60,17 @@ class Metal_soldier():
                 self.soldier.rect.x = self.soldier.rect.x - 10
 
             self.soldier.look_right = False
+        
+        # Ignorar entrada si el soldado está en el aire o está muerto
+        if self.soldier.move_jump or self.soldier.dead:
+            return
+        
+        check_stairs = self.soldier.check_stairs()
+        
+        # Inicializamos el índice de los frames en 0 antes de cualquier evento
+        self.soldier.frame_index = 0 
+
+
             
 
         if event.key == pygame.K_UP:

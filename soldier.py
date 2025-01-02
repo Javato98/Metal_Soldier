@@ -23,7 +23,7 @@ class Soldier(Sprite):
         self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
-        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia3.png').__str__()
+        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia4.png').__str__()
         
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
@@ -339,7 +339,8 @@ class Soldier(Sprite):
 
 
     def _die(self, current_time):
-        if self.be_shot == 3:
+        if self.be_shot >= 3 and self.dead == False:
+            self.frame_index = 0
             self.dead = True
 
         if self.dead:
@@ -349,11 +350,12 @@ class Soldier(Sprite):
             elif self.look_right == False:
                 self.animation(self.animation_die_back, current_time)
 
-        # if self.dead and self.frame_index == 6:
-        #     self.rect.x = 150
-        #     self.rect.y = 0
-        #     self.be_shot = 0
-        #     self.dead = False
+        if self.dead and self.frame_index == 7:
+            self.rect.x = 150
+            self.rect.y = 0
+            self.be_shot = 0
+            self.dead = False
+            self.image = self.animation_run_front[3]
 
 
 
