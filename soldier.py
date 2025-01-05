@@ -14,23 +14,22 @@ class Soldier(Sprite):
         self.settings = Settings()
         self.environment = ms_game.environment
         self.levels = ms_game.levels
+        self.platforms = self.levels.make_platforms()
 
         self.screen = ms_game.screen
         self.screen_rect = self.screen.get_rect()
 
         self.path_image_soldiers_run = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_run.png').__str__()
         self.path_image_soldiers_jump = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_jump.png').__str__()
-        self.path_image_be_covered = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_lying.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
-        self.path_image_die = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_death_type2 copia4.png').__str__()
+
         
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
-        self.image_soldiers_be_covered = pygame.image.load(self.path_image_be_covered).convert_alpha()
         self.image_soldiers_knife_attack = pygame.image.load(self.path_image_knife_attack).convert_alpha()
         self.image_crawl_stairs = pygame.image.load(self.path_image_crawl_stairs).convert_alpha()
-        self.image_die = pygame.image.load(self.path_image_die).convert_alpha()
+
 
 
 
@@ -61,6 +60,7 @@ class Soldier(Sprite):
         self.move_stairs_up = False
         self.move_stairs_down = False
         self.dead = False
+        self.stay_in_floor = False
         
         
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
@@ -90,29 +90,29 @@ class Soldier(Sprite):
         self.animation_die_back = []
 
         # Creamos las animaciones
-        self.animation_run = self.make_frames(self.image_soldiers_run, self.animation_run_front, self.animation_run_back, 8)
-        self.animation_jump = self.make_frames(self.image_soldiers_jump,  self.animation_jump_front, self.animation_jump_back, 2)   # Ascenso del salto
-        self.animation_jump = self.make_frames(self.image_soldiers_jump, self.animation_jump_front, self.animation_jump_back, -1, 2, -1)    # Aterrizaje del salto
-        self.make_frames(self.image_soldiers_be_covered, self.animation_be_covered_front, self.animation_be_covered_back, 1)
-        self.animation_be_covered_front.insert(0, self.animation_jump_front[0])
-        self.animation_be_covered_back.insert(0, self.animation_jump_back[0])
+        self.make_frames(self.image_soldiers_run, self.animation_run_front, self.animation_run_back, 8)
+        self.make_frames(self.image_soldiers_jump,  self.animation_jump_front, self.animation_jump_back, 2)   # Ascenso del salto
+        self.make_frames(self.image_soldiers_jump, self.animation_jump_front, self.animation_jump_back, -1, 2, -1)    # Aterrizaje del salto
+
         
         self.make_frames(self.image_soldiers_knife_attack, self.animation_knife_attack_front, self.animation_knife_attack_back, 7)
         self.make_frames(self.image_crawl_stairs, self.animation_crawl_stairs_front, self.animation_crawl_stairs_back, 5)
 
-        self.make_frames(self.image_die, self.animation_die_front, self.animation_die_back, 8)
+        self.make_split_frames("death", self.animation_die_front, self.animation_die_back, 8)
+        self.make_split_frames("be_covered", self.animation_be_covered_front, self.animation_be_covered_back, 3)
 
         # Eliminamos la lista de la animación de bajar la escalera porque no la necesitamos
         del self.animation_crawl_stairs_front
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-        self.rect.x = 100
+        self.rect.x = 1100
+        self.rect.y = 400
         self.animation_frame = self.animation_run_front
         
         self.stairs_rect = self.save_stairs_rect()
 
-        self.drop = False
+        self.drop = True
         self.be_shot = 0
 
 
@@ -128,10 +128,23 @@ class Soldier(Sprite):
             frame_reverse = pygame.transform.flip(frame, True, False)
             list_frames_reverse.append(frame_reverse)
 
-        animation_frames = [list_frames, list_frames_reverse]
+    
+
+    def make_split_frames(self, folder, list_frames_front, list_frames_reverse, num_images):
+	
+        for i in range(num_images):
+            path_image = Paths(f"resources\\pixel_char_pack\\Player\\Sprites\\{folder}\\{folder}{i}.png").__str__()
+                
+            frame = pygame.image.load(path_image).convert_alpha()
+            
+            list_frames_front.append(frame)
+            
+            frame_reverse = pygame.transform.flip(frame, True, False)
+            
+            list_frames_reverse.append(frame_reverse)
 
 
-        return animation_frames
+
 
 
 
@@ -210,8 +223,10 @@ class Soldier(Sprite):
 
             self.animation(self.animation_frame, current_time)
 
-            if self.frame_index == 0: # Para que se mantenga tendido en el suelo
-                self.frame_index = 1
+            if self.frame_index > 1 or self.stay_in_floor == True: # Para que se mantenga tendido en el suelo
+                self.stay_in_floor = True
+                self.frame_index = 2
+                
 
         else:
             self.standar_position(self.animation_be_covered_front, self.animation_be_covered_back)
@@ -236,9 +251,8 @@ class Soldier(Sprite):
     def check_stairs(self):
         '''Comprobamos si el soldado está debajo o encima de las escaleras de las escaleras'''
 
-        platforms = self.levels.make_platforms()
 
-        for platform in platforms:
+        for platform in self.platforms:
             if isinstance(platform, Stairs):
                 if self.rect.colliderect(platform.rect):
                     return True
@@ -247,9 +261,7 @@ class Soldier(Sprite):
     
     def save_stairs_rect(self):
 
-        platforms = self.levels.make_platforms()
-
-        for platform in platforms:
+        for platform in self.platforms:
             if isinstance(platform, Stairs):
                 stairs = platform
                 stairs_rect = stairs.rect
@@ -261,27 +273,28 @@ class Soldier(Sprite):
         '''Animación del subir y bajar escaleras'''
 
         platforms = self.levels.make_platforms()
-        check_stairs = self.check_stairs()
 
-        for platform in platforms:
-            if isinstance(platform, Stairs):
-                stairs = platform
-        
-                if self.move_stairs_down and check_stairs:
-                    self.animation(self.animation_crawl_stairs_back, current_time)
-                    self.rect.x = stairs.rect.x - 30
-                    self.rect.y += 1
+        if self.check_stairs():
+            for platform in platforms:
+                if isinstance(platform, Stairs):
+                    stairs = platform
+            
+                    if self.move_stairs_down:
+                        self.animation(self.animation_crawl_stairs_back, current_time)
+                        self.rect.x = stairs.rect.x - 30
+                        self.rect.y += 1
 
-                elif self.move_stairs_up and self.rect.bottom -9 >= self.stairs_rect.top:
-                    self.animation(self.animation_crawl_stairs_back, current_time)
-                    self.rect.x = stairs.rect.x - 30
-                    self.rect.y -= 1
+                    elif self.move_stairs_up and self.rect.bottom -9 >= self.stairs_rect.top:
+                        self.animation(self.animation_crawl_stairs_back, current_time)
+                        self.rect.x = stairs.rect.x - 30
+                        self.rect.y -= 1
+
 
 
 
     def move(self, current_time):
         '''Agrupamos en esta función todas las animaciones de los movimientos del personaje'''
-
+        print(self.check_stairs())
         self._move_run(current_time)
         self._move_jump(current_time)
         self._be_covered(current_time)
@@ -297,8 +310,6 @@ class Soldier(Sprite):
         'drop' está a True de forma determinada por que la caida se lleva a cabo a no ser que la 
         condición diga la contrario'''
 
-        platforms = self.levels.make_platforms()
-
 
         # Ajustamos los píxeles por que el rect del soldado no está proporcionado con sus pies, 
         if self.move_right or self.look_right:
@@ -311,9 +322,12 @@ class Soldier(Sprite):
             margin = -10
             margin_right = -30
 
-        self.drop = True
+        if self.check_stairs():
+            self.drop = False
+        else:
+            self.drop = True
 
-        for platform in platforms:
+        for platform in self.platforms:
 
             # Detecta las colisiones 
             if self.rect.colliderect(platform):
@@ -347,7 +361,8 @@ class Soldier(Sprite):
         if self.dead:
             self.standar_position(self.animation_die_front, self.animation_die_back)
 
-            self.animation(self.animation_frame, current_time)
+            self.animation(self.animation_frame, current_time, velocity_animation=150)
+            print(self.frame_index)
 
         if self.dead and self.frame_index == 7:
             self.rect.x = 100
@@ -362,9 +377,7 @@ class Soldier(Sprite):
 
         self.screen.blit(self.image, self.rect)
 
-        platforms = self.levels.make_platforms()
-
-        # for platform in platforms:
+        # for platform in self.platforms:
 
         #     pygame.draw.rect(self.screen, (255,0,0), platform.rect)
 

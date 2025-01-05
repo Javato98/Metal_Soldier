@@ -17,7 +17,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level3()
+        self.coord_level = self.coordinates.level1()
 
         
         
@@ -91,8 +91,8 @@ class Levels(Environment):
         
         self.repeat(self.coordinates.image_back, 2, 0, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
+        self.flag_soil = False
         
-
 
 
     def make_platforms(self):
@@ -147,8 +147,7 @@ class Levels(Environment):
 
 
 
-    def blitme(self):
-        '''Recuerda que el número de repeats tiene que ser par'''   
 
-        self.flag_soil = False
+
+        
 

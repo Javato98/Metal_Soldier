@@ -18,15 +18,17 @@ class Metal_soldier():
         self.settings = Settings()
         self.screen = self.settings.screen
         self.environment = Environment(self)
-        self.levels = Levels(self, 2, ((500, 300), (700, 100)))
+        self.levels = Levels(self, 2, ((650, 500), (700, 100)))
         self.soldier = Soldier(self)
         self.bullets = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
         self.clock = pygame.time.Clock()
-
+        
+        self.platforms = self.levels.make_platforms()
         self.last_shot_enemy = 0
      
         self.make_enemies()
+
 
 
     def check_events(self):
@@ -86,8 +88,9 @@ class Metal_soldier():
                 if check_stairs:
                     self.soldier.move_stairs_down = True
                 else:
+                    self.soldier.stay_in_floor = False
                     self.soldier.be_covered = True
-
+ 
             if event.key == pygame.K_k:
                 self.soldier.knife_attack = True
 
@@ -137,9 +140,8 @@ class Metal_soldier():
     def bullet_detecter_colision(self):
         '''Detecta y elimina las balas que colisionan o que se salen de la pantalla'''
 
-        platforms = self.levels.make_platforms()
 
-        collisions = pygame.sprite.groupcollide(self.bullets, platforms, True, False)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.platforms, True, False)
         
         for bullet in self.bullets:
             if bullet.rect.left > self.settings.screen_width or bullet.rect.right < 0:
@@ -241,7 +243,7 @@ class Metal_soldier():
         self.screen.fill(self.settings.bg_screen) # Actualiza el color del fondo de la pantalla
         
         self.levels.background()
-        self.levels.blitme() # Actualizamos el mapa
+
 
 
         self.soldier.detecter_collision()
@@ -253,6 +255,7 @@ class Metal_soldier():
         self.detect_soldier()
 
         self.update_bullet()
+        self.soldier.blitme()
 
         for bullet in self.bullets.sprites():
             bullet.blitme()    # Dibujamos las balas
@@ -270,7 +273,7 @@ class Metal_soldier():
             
             self.check_events()
             self.update_screen()
-            self.soldier.blitme()
+            
     
             pygame.display.flip()
             self.clock.tick(45) # Mantén un framerate constante de 60 FPS

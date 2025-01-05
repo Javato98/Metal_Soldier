@@ -14,35 +14,99 @@ class Coordinates(EnvironmentFrames):
     def level1(self):
 
 
-        platform1 = [
-            (self.land_up[0], 1, 0, 230),
-            (self.land_up[1], 10, 0, 230),
-            (self.land_middle[2], 28, 250, 180, 'y'),
-            (self.land_middle[1], 28, 250, 160, 'y'),
-            (self.land_middle[1], 28, 250, 140, 'y'),
-            (self.land_middle[1], 28, 250, 120, 'y'),
-            (self.land_middle[1], 28, 250, 100, 'y'),
-            (self.land_middle[1], 28, 250, 80, 'y'),
-            (self.land_middle[1], 28, 250, 60, 'y'),
-            (self.land_middle[1], 28, 250, 40, 'y'),
-            (self.land_middle[1], 28, 250, 20, 'y'),
-            (self.land_middle[1], 28, 250, 0, 'y')
-        ]
-        
-        platform2 = [
-            (self.land_up[0], 1, 300, 230),
-            (self.land_up[1], 44, 320, 230),
-            (self.land_middle[0], 5, 250, 300, 'y'),
-            (self.land_middle[1], 44, 320, 250),
-            (self.land_middle[1], 44, 320, 270),
-            (self.land_middle[1], 44, 320, 290),
-            (self.land_middle[1], 44, 320, 310),
-            (self.land_down[0], 44, 320, 330)
-        ]
+        background = [
+						
+			# Platform 1
+			(self.land_middle[1], 9, 0, 620),
+            (self.land_middle[1], 9, 0, 640),
+            (self.land_middle[1], 9, 0, 660),
+            (self.land_middle[1], 9, 0, 680),
+            (self.land_middle[1], 9, 0, 700),
+            (self.land_middle[1], 9, 0, 720),
+            (self.land_middle[1], 9, 0, 740),
+            (self.land_middle[1], 9, 0, 760),
+            (self.land_middle[1], 9, 0, 780),
+            (self.land_middle[1], 9, 0, 800), 
+            (self.land_middle[2], 9, 620, 180, 'y'),
 
-        level = [platform1, platform2]
+            
+           
+          # Platform 2
+          (self.land_middle[1], 48, 260, 620),
+          (self.land_middle[1], 48, 260, 640),
+          (self.land_middle[1], 48, 260, 660),
+          (self.land_middle[1], 48, 260, 680),
+          (self.land_middle[1], 48, 260, 700),
+          (self.land_middle[1], 48, 260, 720),
+          (self.land_middle[1], 48, 260, 740),
+          (self.land_middle[1], 48, 260, 760),
+          (self.land_middle[1], 48, 260, 780),
+          (self.land_middle[0], 9, 620, 260, 'y'),
+          (self.land_up[0], 1, 600, 260, 'y'),
+          
+          # Platform 3
+          (self.land_up[0], 1, 560, 560, 'y'),
+          (self.land_middle[0], 1, 580, 560, 'y'),
+          (self.land_middle[1], 32, 560, 600),
+          (self.land_middle[1], 32, 580, 580),
+          (self.land_middle[0], 1, 600, 560, 'y'),
+          
+          # Platform 4
+          (self.land_up[0], 1, 520, 800, 'y'),
+          (self.land_middle[0], 1, 540, 800, 'y'),
+          (self.land_middle[1], 20, 800, 560),
+          (self.land_middle[0], 1, 800, 560),
+
+          
+          # Platform 5
+        #   (self.land_middle[1], 60, 0, 280),
+        #   (self.land_down[1], 60, 0, 300)
+        #   (self.stone_grass[1], 1, 100, 240),
+        #   (self.stone_grass[1], 1, 300, 240),
+        #   (self.stone_grass[0], 1, 340, 240),
+        #   (self.stone_grass[1], 1, 500, 240),
+        #   (self.stone_grass[0], 1, 900, 240),
+        #   (self.stone_grass[0], 1, 140, 240),
+        #   (self.stone_grass[1], 1, 200, 240),
+        #   (self.stone_grass[1], 1, 220, 240),
+        #   (self.stone_grass[0], 1, 700, 240)
+          
+          
+	]
+
+        platform1 = [(self.land_up[2], 10, 0, 600)]
+                    
+        platform2 = [(self.land_up[2], 27, 260, 600)]
+
+        platform3 = [
+            (self.land_up[2], 12, 560, 560),
+            (self.land_middle[1], 12, 560, 580)
+            ]
+            
+        platform4 = [
+            (self.land_up[2], 20, 800, 520),
+            (self.land_middle[1], 20, 800, 540)
+            ]
+            
+        platform5 = [ 
+            (self.land_up[2], 60, 0, 260),
+            (self.land_middle[1], 60, 0, 280),
+            (self.land_down[1], 60, 0, 300)
+            ]
+        
+  
+        stairs = [
+            (self.stairs, 10, 260, 1000, 'y', 'stairs')
+            ]
+
+        level = [platform1, platform2, platform3, platform4, platform5, background, stairs]
 
         return level
+
+
+
+
+
 
     
     def level2(self):

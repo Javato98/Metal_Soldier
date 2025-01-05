@@ -86,7 +86,7 @@ class Enemy(Sprite):
 
     def _detecter_collision_enemy(self, current_time):
         
-        platforms = self.levels.make_platforms()
+        platforms = self.ms_game.platforms
         collisions = bool(pygame.sprite.spritecollide(self, platforms, False))
         
         if collisions:

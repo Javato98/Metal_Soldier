@@ -19,13 +19,12 @@ class EnvironmentFrames():
         self.path_stairs= Paths('resources\\Sunny-land-assets-files\\PNG\\environment\\layers\\stairs.png').__str__()
 
         #Cargamos las imágenes
-        self.image_back = pygame.image.load(self.path_back)
-        self.image_palm = pygame.image.load(self.path_middle)
-        self.image_land = pygame.image.load(self.path_land)
-        self.stone_grass = pygame.image.load(self.path_stone_grass)
-        self.cave_edges = pygame.image.load(self.path_cave_edges)
-        
-        self.stairs = pygame.image.load(self.path_stairs)
+        self.image_back = pygame.image.load(self.path_back).convert_alpha()
+        self.image_palm = pygame.image.load(self.path_middle).convert_alpha()
+        self.image_land = pygame.image.load(self.path_land).convert_alpha()
+        self.stone_grass = pygame.image.load(self.path_stone_grass).convert_alpha()
+        self.cave_edges = pygame.image.load(self.path_cave_edges).convert_alpha()
+        self.stairs = pygame.image.load(self.path_stairs).convert_alpha()
 
         
         
