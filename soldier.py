@@ -106,8 +106,8 @@ class Soldier(Sprite):
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-        self.rect.x = 1100
-        self.rect.y = 400
+        self.rect.x = self.settings.start_position_x
+        self.rect.y = self.settings.start_position_y
         self.animation_frame = self.animation_run_front
         
         self.stairs_rect = self.save_stairs_rect()
@@ -294,7 +294,6 @@ class Soldier(Sprite):
 
     def move(self, current_time):
         '''Agrupamos en esta función todas las animaciones de los movimientos del personaje'''
-        print(self.check_stairs())
         self._move_run(current_time)
         self._move_jump(current_time)
         self._be_covered(current_time)
@@ -312,13 +311,13 @@ class Soldier(Sprite):
 
 
         # Ajustamos los píxeles por que el rect del soldado no está proporcionado con sus pies, 
-        if self.move_right or self.look_right:
 
+        # Esto deeríamos dividirlo en funciones más pequeñas
+        if self.move_right or self.look_right:
             margin = 10
             margin_right = 12
 
         elif self.move_left or self.look_right == False:
-
             margin = -10
             margin_right = -30
 
@@ -337,11 +336,11 @@ class Soldier(Sprite):
                     self.drop = False
 
                 # Detecta la colision desde la izquierda
-                if self.rect.right > platform.rect.left and self.rect.bottom -10 > platform.rect.top and self.rect.left < platform.rect.left:
+                if self.rect.right > platform.rect.left and self.rect.bottom -10 > platform.rect.top and self.rect.left < platform.rect.left or self.rect.right > 1200:
                     self.move_right = False
         
                 # Detecta la colision desde la derecha
-                elif self.rect.left < platform.rect.right and self.rect.bottom-10 > platform.rect.top  and self.move_jump == False:
+                elif self.rect.left < platform.rect.right and self.rect.bottom-10 > platform.rect.top  and self.move_jump == False or self.rect.left < 0:
                     self.move_left = False
                     
         # Que la gravedad no afecta al soldado durante el salto hasta que este se encuentre en el aire        
@@ -362,14 +361,13 @@ class Soldier(Sprite):
             self.standar_position(self.animation_die_front, self.animation_die_back)
 
             self.animation(self.animation_frame, current_time, velocity_animation=150)
-            print(self.frame_index)
 
-        if self.dead and self.frame_index == 7:
-            self.rect.x = 100
-            self.rect.y = 0
-            self.be_shot = 0
-            self.dead = False
-            self.image = self.animation_run_front[3]
+            if self.frame_index == 7:
+                self.rect.x = self.settings.start_position_x
+                self.rect.y = self.settings.start_position_y
+                self.be_shot = 0
+                self.dead = False
+                self.image = self.animation_run_front[3]
 
 
 
