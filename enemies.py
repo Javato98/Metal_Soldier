@@ -20,12 +20,10 @@ class Enemy(Sprite):
 
         # Creamos la ruta del enemigo elegido por parámetro
         self.path_image_run = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\Enemy{enemie_number}_run.png").__str__()
-        self.path_image_die = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\Enemy{enemie_number}_Death1.png").__str__()
         self.path_image_fire = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\Enemy{enemie_number}_fire.png").__str__()
 
         # Cargamos la ruta de la imagen
         self.image_run = pygame.image.load(self.path_image_run).convert_alpha()
-        self.image_die = pygame.image.load(self.path_image_die).convert_alpha()
         self.image_fire = pygame.image.load(self.path_image_fire).convert_alpha()
 
         # Creamos las listas para desarrollar las animaciones
@@ -41,7 +39,7 @@ class Enemy(Sprite):
 
         # Creamos los frames
         self.animation_run = self.soldier.make_frames(self.image_run, self.animation_run_front, self.animation_run_back, 8)
-        self.animation_die = self.soldier.make_frames(self.image_die, self.animation_die_front, self.animation_die_back, 8)
+        self.animation_die = self.soldier.make_split_frames("death", self.animation_die_front, self.animation_die_back, 8, root='Enemies\\Enemy Patrol\\Enemy1\\Enemy1_sprites')
         self.animation_fire = self.soldier.make_frames(self.image_fire, self.animation_fire_front, self.animation_fire_back, 5)
 
         self.image = self.animation_run_front[3]

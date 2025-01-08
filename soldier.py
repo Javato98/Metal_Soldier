@@ -130,10 +130,10 @@ class Soldier(Sprite):
 
     
 
-    def make_split_frames(self, folder, list_frames_front, list_frames_reverse, num_images):
+    def make_split_frames(self, folder, list_frames_front, list_frames_reverse, num_images, root='Player\\Sprites'):
 	
         for i in range(num_images):
-            path_image = Paths(f"resources\\pixel_char_pack\\Player\\Sprites\\{folder}\\{folder}{i}.png").__str__()
+            path_image = Paths(f"resources\\pixel_char_pack\\{root}\\{folder}\\{folder}{i}.png").__str__()
                 
             frame = pygame.image.load(path_image).convert_alpha()
             
