@@ -2,6 +2,7 @@ from soldier import Soldier
 from paths import Paths
 from pygame.sprite import Sprite
 from bullet import Bullet
+from coordenates_levels import Stairs
 import pygame
 
 # Creamos los la clase Enemigo
@@ -90,19 +91,20 @@ class Enemy(Sprite):
         if collisions:
             if self.dead == False:
                 for platform in platforms:
+                    if not isinstance(platform, Stairs):
 
-                    #Si llega a uno de los bordes de la plataforma, su dirección cambia de rumbo
-                    if self.rect.colliderect(platform) and self.detect_soldier == False:
-                        self.animation(self.animation_frame, current_time)
+                        #Si llega a uno de los bordes de la plataforma, su dirección cambia de rumbo
+                        if self.rect.colliderect(platform) and self.detect_soldier == False:
+                            self.animation(self.animation_frame, current_time)
 
-                        if self.rect.right > platform.rect.right - 10 or self.look_right == False:
-                            self.look_right = False
-                            self.rect.x -= self.displace_x
+                            if self.rect.right > platform.rect.right - 10 or self.look_right == False:
+                                self.look_right = False
+                                self.rect.x -= self.displace_x
 
-                        if self.rect.left < platform.rect.left -10 or self.look_right:
-                            self.look_right = True
-                            self.rect.x += self.displace_x
-                        self.standar_position(self.animation_run_front, self.animation_run_back)
+                            if self.rect.left < platform.rect.left -10 or self.look_right:
+                                self.look_right = True
+                                self.rect.x += self.displace_x
+                            self.standar_position(self.animation_run_front, self.animation_run_back)
 
         else:
             self.drop = True

@@ -251,7 +251,6 @@ class Soldier(Sprite):
     def check_stairs(self):
         '''Comprobamos si el soldado está debajo o encima de las escaleras de las escaleras'''
 
-
         for platform in self.platforms:
             if isinstance(platform, Stairs):
                 if self.rect.colliderect(platform.rect):
@@ -260,6 +259,7 @@ class Soldier(Sprite):
                 
     
     def save_stairs_rect(self):
+        '''Guardamos as coordenadas de las escaleras en el constructor'''
 
         for platform in self.platforms:
             if isinstance(platform, Stairs):
@@ -289,6 +289,10 @@ class Soldier(Sprite):
                         self.rect.x = stairs.rect.x - 30
                         self.rect.y -= 1
 
+                    else: # Empiece la animación de crawl_stairs en cuanto el soldado se pone en contacto con las escaleras
+                        if self.rect.y > stairs.rect.y:
+                            self.image = self.animation_crawl_stairs_back[0]
+
 
 
 
@@ -312,7 +316,7 @@ class Soldier(Sprite):
 
         # Ajustamos los píxeles por que el rect del soldado no está proporcionado con sus pies, 
 
-        # Esto deeríamos dividirlo en funciones más pequeñas
+        # Esto deberíamos dividirlo en funciones más pequeñas
         if self.move_right or self.look_right:
             margin = 10
             margin_right = 12
@@ -330,6 +334,9 @@ class Soldier(Sprite):
 
             # Detecta las colisiones 
             if self.rect.colliderect(platform):
+
+                if isinstance(platform, Stairs):
+                    pygame.draw.rect(self.screen, (0,255,0), self.rect)
 
                 #Detecta la colision del soldado sobre la plataforma
                 if self.rect.y <= platform.rect.top and (self.rect.right > platform.rect.left + margin and self.rect.left < platform.rect.right + margin_right):

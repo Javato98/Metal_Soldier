@@ -91,26 +91,24 @@ class Levels(Environment):
         
         self.repeat(self.coordinates.image_back, 2, 0, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
+
+        if self.coordinates.flag_cave:
+            self.repeat(self.coordinates.background_cave, 1, 0, 290)
         self.flag_soil = False
         
 
 
     def make_platforms(self):
-        stairs = False
 
-        
-        for platform in self.coord_level:
+        for clave, platform in self.coord_level.items():
             height = 0
             width = 0
 
-
             for coordinates in platform:
-
 
                 image, *params = coordinates  # Separa la imagen del resto de los parámetros        
 
                 self.repeat(image, *params)
-
 
                 if len(self.platform_sprites) < len(self.coord_level):
                     try:
@@ -125,20 +123,17 @@ class Levels(Environment):
                             x = coordinates[2]
                             y = coordinates[3] -height +20
 
-
             if len(self.platform_sprites) < len(self.coord_level):
-                
 
-                if 'stairs' in coordinates:
-                    stairs = True
 
+                if clave == 'background':
+                    continue
                 
                 rect = pygame.Rect(x, y, width, height)
-                if stairs:
+                if clave == 'stairs':
                     platform = Stairs(rect)
                 else:
                     platform = Platform(rect)
-                stairs = False
                 self.platform_sprites.add(platform)
 
 

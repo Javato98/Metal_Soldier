@@ -250,6 +250,9 @@ class Metal_soldier():
         self.kill_enemy()
         self.kill_us()
 
+        for bullet in self.bullets.sprites():
+            bullet.blitme()  
+
         self.soldier.move(self.current_time)
         self.enemies.update(self.current_time)
         self.detect_soldier()
@@ -257,8 +260,7 @@ class Metal_soldier():
         self.update_bullet()
         self.soldier.blitme()
 
-        for bullet in self.bullets.sprites():
-            bullet.blitme()    # Dibujamos las balas
+  # Dibujamos las balas
 
         for enemy in self.enemies.sprites():
             enemy.blitme()
