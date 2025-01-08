@@ -15,6 +15,8 @@ class Settings():
 
 
         # Soldier
+        self.start_position_x = 1100
+        self.start_position_y = 400
         self.velocity_animation_run_front = 40
         self.velocity_animation_jump_front = 95
         self.displace_x = 3

@@ -17,7 +17,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level2 = self.coordinates.level2()
+        self.coord_level = self.coordinates.level1()
 
         
         
@@ -80,23 +80,26 @@ class Environment():
         
 class Levels(Environment):
 
-    def __init__(self, ms_game):
+    def __init__(self, ms_game, enemies_count, coordinates_enemies):
         super().__init__(ms_game)
+
+        self.enemies_count = enemies_count
+        self.coodinates_enemies = coordinates_enemies
 
     
     def background(self):
         
         self.repeat(self.coordinates.image_back, 2, 0, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
+        self.flag_soil = False
         
-
 
 
     def make_platforms(self):
         stairs = False
 
         
-        for platform in self.coord_level2:
+        for platform in self.coord_level:
             height = 0
             width = 0
 
@@ -109,7 +112,7 @@ class Levels(Environment):
                 self.repeat(image, *params)
 
 
-                if len(self.platform_sprites) < len(self.coord_level2):
+                if len(self.platform_sprites) < len(self.coord_level):
                     try:
                         if coordinates[4] == 'y':
                             height = coordinates[1] * 20
@@ -123,7 +126,7 @@ class Levels(Environment):
                             y = coordinates[3] -height +20
 
 
-            if len(self.platform_sprites) < len(self.coord_level2):
+            if len(self.platform_sprites) < len(self.coord_level):
                 
 
                 if 'stairs' in coordinates:
@@ -138,13 +141,13 @@ class Levels(Environment):
                 stairs = False
                 self.platform_sprites.add(platform)
 
+
         return self.platform_sprites
 
 
 
 
-    def blitme(self):
-        '''Recuerda que el número de repeats tiene que ser par'''   
 
-        self.flag_soil = False
+
+        
 
