@@ -335,9 +335,6 @@ class Soldier(Sprite):
             # Detecta las colisiones 
             if self.rect.colliderect(platform):
 
-                if isinstance(platform, Stairs):
-                    pygame.draw.rect(self.screen, (0,255,0), self.rect)
-
                 #Detecta la colision del soldado sobre la plataforma
                 if self.rect.y <= platform.rect.top and (self.rect.right > platform.rect.left + margin and self.rect.left < platform.rect.right + margin_right):
                     self.drop = False

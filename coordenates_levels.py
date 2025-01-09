@@ -52,6 +52,7 @@ class Coordinates(EnvironmentFrames):
             
             # Platform 4
             (self.land_up0, 1, 520, 800, 'y'),
+            (self.land_middle1, 20, 800, 540),
             (self.land_middle0, 1, 540, 800, 'y'),
             (self.land_middle1, 20, 800, 560),
             (self.land_middle0, 1, 800, 560),
@@ -69,24 +70,27 @@ class Coordinates(EnvironmentFrames):
             (self.grass1, 1, 220, 240),
             (self.grass0, 1, 700, 240),
 
-            # Prueba
-            (self.ivy, 1, 100, 340)
-          
-          
-	]
+            # Background
+            (self.ruins4, 11, 320, 100, 'y'),
+            (self.ivy, 1, 80, 540),
+            (self.ruins4, 11, 320, 400, 'y'),
+            (self.ivy, 1, 380, 540),
+            (self.ruins4, 11, 320, 900, 'y'),
+            (self.ivy, 1, 880, 460),
+            (self.ruins4, 11, 320, 1100, 'y'),
+            (self.ivy, 1, 1080, 460),
+	    ]
 
         platform1 = [(self.land_up2, 10, 0, 600)]
                     
-        platform2 = [(self.land_up2, 27, 260, 600)]
+        platform2 = [(self.land_up2, 15, 260, 600)]
 
         platform3 = [
             (self.land_up2, 12, 560, 560),
-            (self.land_middle1, 12, 560, 580)
             ]
             
         platform4 = [
             (self.land_up2, 20, 800, 520),
-            (self.land_middle1, 20, 800, 540)
             ]
             
         platform5 = [ 
@@ -101,12 +105,12 @@ class Coordinates(EnvironmentFrames):
             ]
 
         level = {
+            'background' : background,
             'platform1' : platform1,
             'platform2' : platform2,
             'platform3' : platform3,
             'platform4' : platform4,
             'platform5' : platform5,
-            'background' : background, 
             'stairs' : stairs
             }
 
