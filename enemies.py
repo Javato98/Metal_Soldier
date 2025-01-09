@@ -1,7 +1,6 @@
 from soldier import Soldier
 from paths import Paths
 from pygame.sprite import Sprite
-from bullet import Bullet
 from coordenates_levels import Stairs
 import pygame
 
@@ -58,6 +57,10 @@ class Enemy(Sprite):
 
         self.frame_index = 0
         self.frame_timer = 0
+        self.time_last_shot = 0
+        self.time_detect_soldier = 0
+        self.is_detecting = False
+        self.ready_to_shoot = False
 
         self.drop = True
         
@@ -133,13 +136,29 @@ class Enemy(Sprite):
             self.dead = True
 
     
+    def set_direction(self):
+        if self.soldier.rect.x < self.rect.x:
+            self.look_right = False
+        else:
+            self.look_right = True
+
+    
     def guard(self, current_time):
         if self.dead == False:
             if self.detect_soldier:
-                self.standar_position(self.animation_fire_front, self.animation_fire_back)
-                self.animation(self.animation_frame, current_time, 100)
+                # Damos un tiempo de tregua entre que detecta a soldado y empieza a disparar
+                if self.is_detecting == False:
+                    self.time_detect_soldier = self.ms_game.current_time
+                    self.is_detecting = True
+                # Tregua : 200ms
+                if self.ms_game.current_time - self.time_detect_soldier > 200:
+                    self.ready_to_shoot = True
+                    self.standar_position(self.animation_fire_front, self.animation_fire_back)
+                    self.animation(self.animation_frame, current_time, 100)
             else:
                 self._detecter_collision_enemy(current_time)
+                self.is_detecting = False
+                self.ready_to_shoot = False
             
 
 

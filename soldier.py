@@ -177,7 +177,7 @@ class Soldier(Sprite):
     def _move_run(self, current_time):
         '''Generamos el movimiento del soldado cuando corre hacia la izquierda y hacia la derecha'''
 
-        if self.be_covered == False:
+        if self.be_covered == False and self.knife_attack == False:
             
             if self.move_jump and self.frame_index > 1:
                 self.settings.displace_x = 5
@@ -358,6 +358,10 @@ class Soldier(Sprite):
 
     def _die(self, current_time):
         if self.be_shot >= 3 and self.dead == False:
+            self.move_left = False
+            self.move_right = False
+            self.be_covered = False
+            self.knife_attack = False
             self.frame_index = 0
             self.dead = True
 

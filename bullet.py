@@ -29,6 +29,8 @@ class Bullet(Sprite):
         # Obtiene el rectángulo de la imagen y ajusta su posición
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
+        self.direction_enemy = 0
+        self.direction_soldier = 1
 
 
         self.x = float(self.rect.x)

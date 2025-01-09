@@ -25,7 +25,6 @@ class Metal_soldier():
         self.clock = pygame.time.Clock()
         
         self.platforms = self.levels.make_platforms()
-        self.last_shot_enemy = 0
      
         self.make_enemies()
 
@@ -62,7 +61,6 @@ class Metal_soldier():
                 self.soldier.move_left = True
                 if self.soldier.look_right:
                     self.soldier.rect.x = self.soldier.rect.x - 10
-
                 self.soldier.look_right = False
             
             # Ignorar entrada si el soldado está en el aire o está muerto
@@ -93,7 +91,7 @@ class Metal_soldier():
  
             if event.key == pygame.K_k:
                 self.soldier.knife_attack = True
-
+                self.soldier.frame_index = 1
 
             if event.key == pygame.K_SPACE:
                 self.fire_bullet(self.soldier)
@@ -151,27 +149,25 @@ class Metal_soldier():
     
     def fire_bullet(self, character):
         '''Creamos la bala y le damos una frecuencia de disparo si es el enemigo'''
-
-        def create_bullet(self, character):
-            '''Creamos la bala y la añadimos a la lista'''
-            new_bullet = Bullet(self, character)
-            self.bullets.add(new_bullet)
             
-
         if character != self.soldier:
-            if self.current_time - self.last_shot_enemy > 600:
-                create_bullet(self, character)
-                self.last_shot_enemy = self.current_time
+            if character.ready_to_shoot:
+                if self.current_time - character.time_last_shot > 600:
+                    self.create_bullet(character)
+                    character.time_last_shot = self.current_time
 
         else:
-            create_bullet(self, character)
+            self.create_bullet(character)
 
 
+    def create_bullet(self, character):
+        '''Creamos la bala y la añadimos a la lista'''
+        new_bullet = Bullet(self, character)
+        self.bullets.add(new_bullet)
 
 
     def update_bullet(self):
         '''Actualizamos las balas'''
-
         self.bullets.update()      # Desplazamos las balas para darle movimiento
         self.bullet_detecter_colision()
 
@@ -187,7 +183,6 @@ class Metal_soldier():
 
     def bullet_kill(self):
         '''Disparamos al enemigo'''
-
         for bullet in self.bullets:
             if bullet.character == self.soldier:
                 for enemy in self.enemies:
