@@ -151,7 +151,7 @@ class Enemy(Sprite):
                     self.time_detect_soldier = self.ms_game.current_time
                     self.is_detecting = True
                 # Tregua : 200ms
-                if self.ms_game.current_time - self.time_detect_soldier > 200:
+                if self.ms_game.current_time - self.time_detect_soldier > 250:
                     self.ready_to_shoot = True
                     self.standar_position(self.animation_fire_front, self.animation_fire_back)
                     self.animation(self.animation_frame, current_time, 100)

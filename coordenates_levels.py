@@ -11,9 +11,13 @@ class Coordinates(EnvironmentFrames):
         self.flag_cave = False
 
 
+
     def level1(self):
 
         self.flag_cave = True
+
+        self.initial_coordinates_soldier = (1100, 400)
+        self.initial_coordinates_enemies = ((650, 500), (700, 100))
 
         background = [
 						
@@ -122,94 +126,178 @@ class Coordinates(EnvironmentFrames):
 
 
     
-    # def level2(self):
+    def level2(self):
 
-    #     background = [
-    #         #Platform 1
-    #         (self.land_up[1], 1, 140, 230),
-    #         (self.land_middle[0], 1, 140, 250),
-    #         (self.land_middle[2], 1, 300, 250),
-    #         (self.land_down[0], 1, 140, 270),
-    #         (self.land_down[2], 1, 300, 270),
+        self.initial_coordinates_soldier = (80, 100)
+        self.initial_coordinates_enemies = ((450, 100), (940, 100),(340, 360), (820, 360), (700, 500), (450, 500))
 
-    #         #Platform 2
-    #         (self.land_up[1], 1, 380, 230),
-    #         (self.land_middle[0], 1, 380, 250),
-    #         (self.land_middle[2], 1, 540, 250),
-    #         (self.land_down[0], 1, 380, 270),
-    #         (self.land_down[2], 1, 540, 270),
-
-    #         #Platform 3
-    #         (self.land_up[1], 1, 620, 230),
-    #         (self.land_middle[0], 1, 620, 250),
-    #         (self.land_middle[2], 1, 780, 250),
-    #         (self.land_down[0], 1, 620, 270),
-    #         (self.land_down[2], 1, 780, 270),
-
-    #         #Platform 4
-    #         (self.land_up[1], 1, 860, 230),
-    #         (self.land_middle[0], 1, 860, 250),
-    #         (self.land_middle[2], 1, 1020, 250),
-    #         (self.land_down[0], 1, 860, 270),
-    #         (self.land_down[2], 1, 1020, 270),
-
-    #         #Platform 5
-    #         (self.land_up[0], 1, 500, 600),
-
-    #         #Platform 6
+        background = [
+            #Platform 1
+            (self.land_middle1, 9, 160, 250),
+            (self.land_down1, 9, 160, 270),
+            (self.land_up0, 1, 160, 230),
+            (self.land_middle0, 1, 160, 250),
+            (self.land_down0, 1, 160, 270),
+            (self.land_up2, 1, 320, 230),
+            (self.land_middle2, 1, 320, 250),
+            (self.land_down2, 1, 320, 270),
+            (self.bush, 1, 200, 195),
             
-    #     ]
+            
+
+            #Platform 2
+            (self.land_middle1, 9, 400, 250),
+            (self.land_down1, 9, 400, 270),
+            (self.land_up0, 1, 400, 230),
+            (self.land_middle0, 1, 400, 250),
+            (self.land_down0, 1, 400, 270),
+            (self.land_up2, 1, 560, 230),
+            (self.land_middle2, 1, 560, 250),
+            (self.land_down2, 1, 560, 270),
+
+            #Platform 3
+            (self.land_middle1, 9, 640, 250),
+            (self.land_down1, 9, 640, 270),
+            (self.land_up0, 1, 640, 230),
+            (self.land_middle0, 1, 640, 250),
+            (self.land_down0, 1, 640, 270),
+            (self.land_up2, 1, 800, 230),
+            (self.land_middle2, 1, 800, 250),
+            (self.land_down2, 1, 800, 270),
+            
+            (self.mushroom, 1, 640, 217),
+            (self.grass0, 1, 720, 210),
+            (self.grass0, 1, 760, 210),
+            (self.grass0, 1, 780, 210),
 
 
-    #     platform1 = [
-    #         (self.land_up[2], 9, 160, 230),
-    #         (self.land_middle[1], 9, 160, 250),
-    #         (self.land_down[1], 9, 160, 270)
-    #     ]
+
+            #Platform 4
+            (self.land_middle1, 9, 880, 250),
+            (self.land_down1, 9, 880, 270),
+            (self.land_up0, 1, 880, 230),
+            (self.land_middle0, 1,880, 250),
+            (self.land_down0, 1, 880, 270),
+            (self.land_up2, 1, 1040, 230),
+            (self.land_middle2, 1, 1040, 250),
+            (self.land_down2, 1, 1040, 270),
+
+            #Platform 6
+            (self.land_middle1, 9, 280, 440),
+            (self.land_down1, 9, 280, 460),
+            (self.land_up0, 1, 280, 420),
+            (self.land_middle0, 1, 280, 440),
+            (self.land_down0, 1, 280, 460),
+            (self.land_up2, 1, 440, 420),
+            (self.land_middle2, 1, 440, 440),
+            (self.land_down2, 1, 440, 460),
+
+            #Platform 7
+            (self.land_middle1, 9, 520, 440),
+            (self.land_down1, 9, 520, 460),
+            (self.land_up0, 1, 520, 420),
+            (self.land_middle0, 1, 520, 440),
+            (self.land_down0, 1, 520, 460),
+            (self.land_up2, 1, 680, 420),
+            (self.land_middle2, 1, 680, 440),
+            (self.land_down2, 1, 680, 460),
+
+
+            #Platform 8
+            (self.land_middle1, 9, 760, 440),
+            (self.land_down1, 9, 760, 460),
+            (self.land_up0, 1, 760, 420),
+            (self.land_middle0, 1, 760, 440),
+            (self.land_down0, 1, 760, 460),
+            (self.land_up2, 1, 920, 420),
+            (self.land_middle2, 1, 920, 440),
+            (self.land_down2, 1, 920, 460),
+
+
+            #Platform 9
+            (self.land_middle1, 9, 400, 670),
+            (self.land_down1, 9, 400, 690),
+            (self.land_up0, 1, 400, 650),
+            (self.land_middle0, 1, 400, 670),
+            (self.land_down0, 1, 400, 690),
+            (self.land_up2, 1, 560, 650),
+            (self.land_middle2, 1, 560, 670),
+            (self.land_down2, 1, 560, 690),
+
+
+            #Platform 10
+            (self.land_middle1, 9, 640, 670),
+            (self.land_down1, 9, 640, 690),
+            (self.land_up0, 1, 640, 650),
+            (self.land_middle0, 1, 640, 670),
+            (self.land_down0, 1, 640, 690),
+            (self.land_up2, 1, 800, 650),
+            (self.land_middle2, 1, 800, 670),
+            (self.land_down2, 1, 800, 690),
+        ]
+
+
+        platform1 = [
+            (self.land_up2, 9, 160, 230)
+        ]
         
 
-    #     platform2 = [
-    #         (self.land_up[2], 9, 400, 230),
-    #         (self.land_middle[1], 9, 400, 250),
-    #         (self.land_down[1], 9, 400, 270)
-    #     ]
+        platform2 = [
+            (self.land_up2, 9, 400, 230),
+        ]
 
-    #     platform3 = [
-    #         (self.land_up[2], 9, 640, 230),
-    #         (self.land_middle[1], 9, 640, 250),
-    #         (self.land_down[1], 9, 640, 270)
-    #     ]
+        platform3 = [
+            (self.land_up2, 9, 640, 230),
+        ]
 
-    #     platform4 = [
-    #         (self.land_up[2], 9, 880, 230),
-    #         (self.land_middle[1], 9, 880, 250),
-    #         (self.land_down[1], 9, 880, 270)
-    #     ]
+        platform4 = [
+            (self.land_up2, 9, 880, 230),
+        ]
 
-    #     platform5 = [
-    #         (self.land_down[1], 4, 80, 270)]
+        platform5 = [
+            (self.land_down1, 4, 80, 270)
+        ]
+
+        # Segunda fila de plataformas  
+        platform6 = [
+            (self.land_up2, 9, 280, 420),
+        ]
+
+        platform7 = [
+            (self.land_up2, 9, 520, 420),
+        ]
+
+        platform8 = [
+            (self.land_up2, 9, 760, 420),
+        ]
+
+        # Tercera fila de plataformas  
+        platform9 = [
+            (self.land_up2, 9, 400, 650),
+        ]
+
+        platform10 = [
+            (self.land_up2, 9, 640, 650),
+        ]
 
 
-    #     platform6 = [
-    #         (self.land_up[2], 9, 400, 540),
-    #         (self.land_middle[1], 9, 400, 560),
-    #         (self.land_down[1], 9, 400, 580)
-    #     ]
-
-
-    #     platform7 = [
-    #         (self.land_up[1], 26, 580, 580)
-    #     ]
-
-    #     stairs = [
-    #         (self.stairs, 3, 230, 520, 'y', 'stairs')
-    #     ]
 
 
 
-    #     level = [platform1, platform2, platform3, platform4, platform5, platform6, platform7, stairs]
-
-    #     return level
+        level = {
+            'background' : background,
+            'platform1' : platform1,
+            'platform2' : platform2,
+            'platform3' : platform3,
+            'platform4' : platform4,
+            'platform5' : platform5,
+            'platform6' : platform6,
+            'platform7' : platform7,
+            'platform8' : platform8,
+            'platform9' : platform9,
+            'platform10' : platform10
+            }
+        return level
     
 
 

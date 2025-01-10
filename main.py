@@ -6,6 +6,7 @@ from soldier import Soldier
 from bullet import Bullet
 from environment import Environment, Levels
 from enemies import Enemy
+from coordenates_levels import Coordinates
 
 
 class Metal_soldier():
@@ -18,7 +19,7 @@ class Metal_soldier():
         self.settings = Settings()
         self.screen = self.settings.screen
         self.environment = Environment(self)
-        self.levels = Levels(self, 2, ((650, 500), (700, 100)))
+        self.levels = Levels(self)
         self.soldier = Soldier(self)
         self.bullets = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
@@ -200,7 +201,7 @@ class Metal_soldier():
         
     def make_enemies(self):
 
-        for i in range(2):
+        for i in range(self.levels.enemies_count):
             enemy = Enemy(self, 1, self.levels.coodinates_enemies[i][0], self.levels.coodinates_enemies[i][1])
             self.enemies.add(enemy)
 

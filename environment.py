@@ -3,7 +3,6 @@ from coordenates_levels import Coordinates, Platform, Stairs
 
 
 
-
 class Environment():
     
 
@@ -17,12 +16,12 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level1()
+        self.coord_level = self.coordinates.level2()
 
         
         
 
-    def repeat(self, image, repeat,  eje_x, eje_y, direction='x', id='p'):
+    def repeat(self, image, repeat,  eje_x, eje_y, direction='x'):
         '''Repetimos la imagen las veces necesarias para crear la que nos interesa. 
         Debemos de tener en cuenta, que si 'direction' tiene el valor 'y', el orden 
         de los ejes se invertirán. La función retorna las las cordenadas del suelo, 
@@ -80,11 +79,12 @@ class Environment():
         
 class Levels(Environment):
 
-    def __init__(self, ms_game, enemies_count, coordinates_enemies):
+    def __init__(self, ms_game):
         super().__init__(ms_game)
 
-        self.enemies_count = enemies_count
-        self.coodinates_enemies = coordinates_enemies
+        self.coordinates_soldier = self.coordinates.initial_coordinates_soldier
+        self.enemies_count = len(self.coordinates.initial_coordinates_enemies)
+        self.coodinates_enemies = self.coordinates.initial_coordinates_enemies
 
     
     def background(self):

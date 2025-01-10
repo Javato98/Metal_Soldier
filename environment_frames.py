@@ -7,12 +7,12 @@ class EnvironmentFrames():
 
     def __init__(self, ms_game):
 
-        
-        
         self.screen = ms_game.screen
 
         self.image_back = self.make_image('back.png', 1.6)
         self.image_palm = self.make_image('middle.png')
+
+        # Surfaces
         self.background_cave = self.make_image('background_cave.png')
         self.land_up1 = self.make_image('surfaces\\land_up1.png')
         self.land_up0 = self.make_image('surfaces\\land_up0.png')
@@ -27,6 +27,8 @@ class EnvironmentFrames():
         self.land_down0 = self.make_image('surfaces\\land_down0.png')
         self.land_down1 = self.make_image('surfaces\\land_down1.png')
         self.land_down2 = self.make_image('surfaces\\land_down2.png')
+
+        # Objects
         self.branch_left = self.make_image('objects\\branch_left.png')
         self.branch_right = self.make_image('objects\\branch_right.png')
         self.cut_tree = self.make_image('objects\\cut_tree.png')
@@ -34,6 +36,8 @@ class EnvironmentFrames():
         self.grass0 = self.make_image('objects\\grass0.png')
         self.grass1 = self.make_image('objects\\grass1.png')
         self.stairs = self.make_image('objects\\stairs.png')
+
+        # Cave
         self.column_left = self.make_image('cave\\column_left.png')
         self.column_right = self.make_image('cave\\column_right.png')
         self.edge = self.make_image('cave\\edge.png')
@@ -55,6 +59,27 @@ class EnvironmentFrames():
         self.torch = self.make_image('cave\\torch.png')
         self.tribal_piece = self.make_image('cave\\tribal_piece.png')
         self.tribal_piece2 = self.make_image('cave\\tribal_piece2.png')
+
+        # Props
+        self.bones = self.make_image('props\\bones.png')
+        self.bones2 = self.make_image('props\\bones2.png')
+        self.box = self.make_image('props\\box.png')
+        self.bush = self.make_image('props\\bush.png')
+        self.death_poster = self.make_image('props\\death_poster.png')
+        self.door = self.make_image('props\\door.png')
+        self.house = self.make_image('props\\house.png')
+        self.lever_off = self.make_image('props\\lever_off.png')
+        self.lever_on = self.make_image('props\\lever_on.png')
+        self.mushroom = self.make_image('props\\mushroom.png')
+        self.rock = self.make_image('props\\rock.png')
+        self.shadow_box = self.make_image('props\\shadow_box.png')
+        self.shadow_box_demon = self.make_image('props\\shadow_box_demon.png')
+        self.shadow_box_long = self.make_image('props\\shadow_box_long.png')
+        self.skulls = self.make_image('props\\skulls.png')
+        self.small_box = self.make_image('props\\small_box.png')
+        self.tree = self.make_image('props\\tree.png')
+        self.tribal_box = self.make_image('props\\tribal_box.png')
+        self.tribal_box_small = self.make_image('props\\tribal_box_small.png')
 
 
 

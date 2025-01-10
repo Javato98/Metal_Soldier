@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 from settings import Settings
 from paths import Paths
-from environment import Platform, Stairs
+from environment import  Stairs
 
 
 class Soldier(Sprite):
@@ -106,8 +106,8 @@ class Soldier(Sprite):
     
         self.image = self.animation_run_front[3]
         self.rect = self.image.get_rect(width=40)
-        self.rect.x = self.settings.start_position_x
-        self.rect.y = self.settings.start_position_y
+        self.rect.x = self.levels.coordinates_soldier[0]
+        self.rect.y = self.levels.coordinates_soldier[1]
         self.animation_frame = self.animation_run_front
         
         self.stairs_rect = self.save_stairs_rect()
@@ -371,8 +371,8 @@ class Soldier(Sprite):
             self.animation(self.animation_frame, current_time, velocity_animation=150)
 
             if self.frame_index == 7:
-                self.rect.x = self.settings.start_position_x
-                self.rect.y = self.settings.start_position_y
+                self.rect.x = self.levels.coordinates_soldier[0]
+                self.rect.y = self.levels.coordinates_soldier[1]
                 self.be_shot = 0
                 self.dead = False
                 self.image = self.animation_run_front[3]
