@@ -16,7 +16,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level2()
+        self.coord_level = self.coordinates.level1()
 
         
         
