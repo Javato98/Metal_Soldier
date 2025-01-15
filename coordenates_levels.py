@@ -16,8 +16,8 @@ class Coordinates(EnvironmentFrames):
 
         self.flag_cave = True
 
-        self.initial_coordinates_soldier = (1100, 400)
-        self.initial_coordinates_enemies = ((650, 500), (700, 100))
+        self.initial_coordinates_soldier = (100, 540)
+        self.initial_coordinates_enemies = ((650, 500), (700, 100), (1100, 400))
 
         background = [
 						
@@ -32,7 +32,7 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle1, 9, 0, 760),
             (self.land_middle1, 9, 0, 780),
             (self.land_middle1, 9, 0, 800), 
-            (self.land_middle2, 9, 620, 180, 'y'),
+            (self.wood_middle2, 9, 620, 180, 'y'),
             
             # Platform 2
             (self.land_middle1, 48, 260, 620),
@@ -44,26 +44,32 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle1, 48, 260, 740),
             (self.land_middle1, 48, 260, 760),
             (self.land_middle1, 48, 260, 780),
-            (self.land_middle0, 9, 620, 260, 'y'),
-            (self.land_up0, 1, 600, 260, 'y'),
+            (self.wood_middle0, 9, 620, 260, 'y'),
+            (self.wood_up0, 1, 600, 260, 'y'),
             
             # Platform 3
-            (self.land_up0, 1, 560, 560, 'y'),
-            (self.land_middle0, 1, 580, 560, 'y'),
+            (self.wood_up0, 1, 560, 560, 'y'),
+            (self.wood_middle0, 1, 580, 560, 'y'),
             (self.land_middle1, 32, 560, 600),
             (self.land_middle1, 32, 580, 580),
-            (self.land_middle0, 1, 600, 560, 'y'),
+            (self.wood_middle0, 1, 600, 560, 'y'),
             
             # Platform 4
-            (self.land_up0, 1, 520, 800, 'y'),
+            (self.wood_up0, 1, 520, 800, 'y'),
             (self.land_middle1, 20, 800, 540),
-            (self.land_middle0, 1, 540, 800, 'y'),
+            (self.wood_middle0, 1, 540, 800, 'y'),
             (self.land_middle1, 20, 800, 560),
-            (self.land_middle0, 1, 800, 560),
+            (self.wood_middle0, 1, 800, 560),
 
             # Platform 5
             (self.land_middle1, 60, 0, 280),
             (self.land_down1, 60, 0, 300),
+            (self.house, 1, 100, 120),
+            (self.rock, 1, 600, 240),
+            (self.mushroom, 1, 260, 247),
+            (self.mushroom, 1, 1100, 247),
+            (self.mushroom, 1, 470, 247),
+            (self.bush, 1, 800, 225),
             (self.grass1, 1, 100, 240),
             (self.grass1, 1, 300, 240),
             (self.grass0, 1, 340, 240),
@@ -74,7 +80,9 @@ class Coordinates(EnvironmentFrames):
             (self.grass1, 1, 220, 240),
             (self.grass0, 1, 700, 240),
 
+
             # Background
+                # Columns
             (self.ruins4, 11, 320, 100, 'y'),
             (self.ivy, 1, 80, 540),
             (self.ruins4, 11, 320, 400, 'y'),
@@ -83,18 +91,32 @@ class Coordinates(EnvironmentFrames):
             (self.ivy, 1, 880, 460),
             (self.ruins4, 11, 320, 1100, 'y'),
             (self.ivy, 1, 1080, 460),
+
+                # Boxes
+            (self.shadow_box_demon, 1, 210, 380),
+            (self.shadow_box, 1, 170, 490),
+            (self.shadow_box, 1, 270, 490),
+            (self.shadow_box_long, 1, 540, 400),
+            (self.shadow_box_long, 1, 740, 400),
+            (self.torch, 1, 550, 370),
+            (self.torch, 1, 750, 370),
+            (self.ruins, 1, 650, 500),
+            (self.liana2, 1, 350, 300),
+            (self.liana1, 1, 650, 300),
+            (self.liana2, 1, 870, 300),
+
 	    ]
 
-        platform1 = [(self.land_up2, 10, 0, 600)]
+        platform1 = [(self.wood_up1, 10, 0, 600)]
                     
-        platform2 = [(self.land_up2, 15, 260, 600)]
+        platform2 = [(self.wood_up1, 15, 260, 600)]
 
         platform3 = [
-            (self.land_up2, 12, 560, 560),
+            (self.wood_up1, 12, 560, 560),
             ]
             
         platform4 = [
-            (self.land_up2, 20, 800, 520),
+            (self.wood_up1, 20, 800, 520),
             ]
             
         platform5 = [ 
@@ -142,6 +164,7 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle2, 1, 320, 250),
             (self.land_down2, 1, 320, 270),
             (self.bush, 1, 200, 195),
+            (self.branch_right, 1, 340, 250),
             
             
 
@@ -154,6 +177,8 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 560, 230),
             (self.land_middle2, 1, 560, 250),
             (self.land_down2, 1, 560, 270),
+            (self.grass0, 1, 440, 210),
+            (self.grass0, 1, 480, 210),
 
             #Platform 3
             (self.land_middle1, 9, 640, 250),
@@ -164,11 +189,11 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 800, 230),
             (self.land_middle2, 1, 800, 250),
             (self.land_down2, 1, 800, 270),
-            
             (self.mushroom, 1, 640, 217),
             (self.grass0, 1, 720, 210),
             (self.grass0, 1, 760, 210),
             (self.grass0, 1, 780, 210),
+            (self.branch_left, 1, 620, 250),
 
 
 
@@ -181,8 +206,13 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 1040, 230),
             (self.land_middle2, 1, 1040, 250),
             (self.land_down2, 1, 1040, 270),
+            (self.tree, 1, 950, 110),
+            (self.rock, 1, 900, 211),
+            (self.branch_right, 1, 1060, 250),
 
-            #Platform 6
+
+
+            #Platform 5
             (self.land_middle1, 9, 280, 440),
             (self.land_down1, 9, 280, 460),
             (self.land_up0, 1, 280, 420),
@@ -191,8 +221,11 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 440, 420),
             (self.land_middle2, 1, 440, 440),
             (self.land_down2, 1, 440, 460),
+            (self.mushroom, 1, 320, 407),
+            (self.grass1, 1, 380, 400),
+            (self.grass1, 1, 400, 400),
 
-            #Platform 7
+            #Platform 6
             (self.land_middle1, 9, 520, 440),
             (self.land_down1, 9, 520, 460),
             (self.land_up0, 1, 520, 420),
@@ -201,9 +234,13 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 680, 420),
             (self.land_middle2, 1, 680, 440),
             (self.land_down2, 1, 680, 460),
+            (self.grass0, 1, 540, 400),
+            (self.grass1, 1, 620, 400),
+            (self.grass1, 1, 640, 400),
+            (self.branch_right, 1, 700, 440),
+            
 
-
-            #Platform 8
+            #Platform 7
             (self.land_middle1, 9, 760, 440),
             (self.land_down1, 9, 760, 460),
             (self.land_up0, 1, 760, 420),
@@ -212,9 +249,11 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 920, 420),
             (self.land_middle2, 1, 920, 440),
             (self.land_down2, 1, 920, 460),
+            (self.rock, 1, 800, 400),
+            (self.grass1, 1, 880, 400),
 
 
-            #Platform 9
+            #Platform 8
             (self.land_middle1, 9, 400, 670),
             (self.land_down1, 9, 400, 690),
             (self.land_up0, 1, 400, 650),
@@ -223,9 +262,13 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 560, 650),
             (self.land_middle2, 1, 560, 670),
             (self.land_down2, 1, 560, 690),
+            (self.bush, 1, 430, 615),
+            (self.grass0, 1, 480, 630),
+            (self.branch_left, 1, 380, 670),
 
 
-            #Platform 10
+
+            #Platform 9
             (self.land_middle1, 9, 640, 670),
             (self.land_down1, 9, 640, 690),
             (self.land_up0, 1, 640, 650),
@@ -234,6 +277,10 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 1, 800, 650),
             (self.land_middle2, 1, 800, 670),
             (self.land_down2, 1, 800, 690),
+            (self.mushroom, 1, 760, 637),
+            (self.grass0, 1, 660, 630),
+            (self.grass0, 1, 680, 630),
+
         ]
 
 
