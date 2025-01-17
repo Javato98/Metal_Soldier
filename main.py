@@ -6,7 +6,7 @@ from soldier import Soldier
 from bullet import Bullet
 from environment import Environment, Levels
 from enemies import Enemy
-from coordenates_levels import Coordinates
+
 
 
 class Metal_soldier():

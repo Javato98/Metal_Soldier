@@ -34,6 +34,7 @@ class EnvironmentFrames():
         self.wood_down1 = self.make_image('surfaces\\wood_down1.png')
         self.wood_down2 = self.make_image('surfaces\\wood_down2.png')
         
+        
 
         # Objects
         self.branch_left = self.make_image('objects\\branch_left.png')
@@ -47,6 +48,7 @@ class EnvironmentFrames():
         # Cave
         self.column_left = self.make_image('cave\\column_left.png')
         self.column_right = self.make_image('cave\\column_right.png')
+        self.column_down = self.make_image('cave\\column_down.png')
         self.edge = self.make_image('cave\\edge.png')
         self.edge2 = self.make_image('cave\\edge2.png')
         self.edge3 = self.make_image('cave\\edge3.png')
@@ -66,6 +68,7 @@ class EnvironmentFrames():
         self.torch = self.make_image('cave\\torch.png')
         self.tribal_piece = self.make_image('cave\\tribal_piece.png')
         self.tribal_piece2 = self.make_image('cave\\tribal_piece2.png')
+        self.background_cave_unit = self.make_image('cave\\background_cave_unit.png')
 
         # Props
         self.bones = self.make_image('props\\bones.png')

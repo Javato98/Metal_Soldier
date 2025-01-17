@@ -154,6 +154,8 @@ class Coordinates(EnvironmentFrames):
         self.initial_coordinates_enemies = ((450, 100), (940, 100),(340, 360), (820, 360), (700, 500), (450, 500))
 
         background = [
+            
+
             #Platform 1
             (self.land_middle1, 9, 160, 250),
             (self.land_down1, 9, 160, 270),
@@ -196,7 +198,6 @@ class Coordinates(EnvironmentFrames):
             (self.branch_left, 1, 620, 250),
 
 
-
             #Platform 4
             (self.land_middle1, 9, 880, 250),
             (self.land_down1, 9, 880, 270),
@@ -209,7 +210,6 @@ class Coordinates(EnvironmentFrames):
             (self.tree, 1, 950, 110),
             (self.rock, 1, 900, 211),
             (self.branch_right, 1, 1060, 250),
-
 
 
             #Platform 5
@@ -239,6 +239,15 @@ class Coordinates(EnvironmentFrames):
             (self.grass1, 1, 640, 400),
             (self.branch_right, 1, 700, 440),
             
+            
+            #Platform 7 Part 2
+            (self.column_left, 1, 900, 380),
+            (self.column_right, 1, 940, 380),
+            (self.column_down, 1, 885, 442),
+
+
+            
+
 
             #Platform 7
             (self.land_middle1, 9, 760, 440),
@@ -251,7 +260,9 @@ class Coordinates(EnvironmentFrames):
             (self.land_down2, 1, 920, 460),
             (self.rock, 1, 800, 400),
             (self.grass1, 1, 880, 400),
+            
 
+            
 
             #Platform 8
             (self.land_middle1, 9, 400, 670),
@@ -265,7 +276,7 @@ class Coordinates(EnvironmentFrames):
             (self.bush, 1, 430, 615),
             (self.grass0, 1, 480, 630),
             (self.branch_left, 1, 380, 670),
-
+            (self.land_up2, 2, 880, 420),
 
 
             #Platform 9
@@ -302,8 +313,13 @@ class Coordinates(EnvironmentFrames):
         ]
 
         platform5 = [
-            (self.land_down1, 4, 80, 270)
+            (self.edge2, 3, 100, 270),
         ]
+
+        platform5_1 = [
+            (self.edge, 1, 80, 270),
+        ]
+
 
         # Segunda fila de plataformas  
         platform6 = [
@@ -314,8 +330,20 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 9, 520, 420),
         ]
 
+        platform7_2 = [
+            (self.edge2, 5, 900, 380),
+        ]
+
+        plafotm7_3 = [
+            (self.edge, 1, 880, 380),
+        ]
+
+        plafotm7_4 = [
+            (self.edge3, 1, 1000, 380),
+        ]
+
         platform8 = [
-            (self.land_up2, 9, 760, 420),
+            (self.land_up2, 6, 760, 420),
         ]
 
         # Tercera fila de plataformas  
@@ -326,6 +354,15 @@ class Coordinates(EnvironmentFrames):
         platform10 = [
             (self.land_up2, 9, 640, 650),
         ]
+
+        platform11 = [
+            (self.edge2, 4, 320, 690),
+        ]
+
+        plafotm11_1 = [
+            (self.edge, 1, 300, 690),
+        ]
+
 
 
 
@@ -338,11 +375,17 @@ class Coordinates(EnvironmentFrames):
             'platform3' : platform3,
             'platform4' : platform4,
             'platform5' : platform5,
+            'platform5_1' : platform5_1,
             'platform6' : platform6,
             'platform7' : platform7,
+            'platform7_2' : platform7_2,
+            'plafotm7_3' : plafotm7_3,
+            'plafotm7_4' : plafotm7_4,
             'platform8' : platform8,
             'platform9' : platform9,
-            'platform10' : platform10
+            'platform10' : platform10,
+            'platform11' : platform11,
+            'plafotm11_1' : plafotm11_1
             }
         return level
     
