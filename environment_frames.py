@@ -13,7 +13,8 @@ class EnvironmentFrames():
         self.image_palm = self.make_image('middle.png')
 
         # Surfaces
-        self.background_cave = self.make_image('background_cave.png')
+        self.background_cave = self.make_image('background_cave\\background_cave_level1.png')
+        self.background_cave2 = self.make_image('background_cave\\background_cave_level2.png')
         self.land_up1 = self.make_image('surfaces\\land_up1.png')
         self.land_up0 = self.make_image('surfaces\\land_up0.png')
         self.land_up1 = self.make_image('surfaces\\land_up1.png')
@@ -46,6 +47,7 @@ class EnvironmentFrames():
         self.stairs = self.make_image('objects\\stairs.png')
 
         # Cave
+        self.border_cave_right = self.make_image('cave\\border_cave_right.png')
         self.column_left = self.make_image('cave\\column_left.png')
         self.column_right = self.make_image('cave\\column_right.png')
         self.column_down = self.make_image('cave\\column_down.png')

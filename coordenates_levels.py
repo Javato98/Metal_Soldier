@@ -299,7 +299,6 @@ class Coordinates(EnvironmentFrames):
             (self.land_up2, 9, 160, 230)
         ]
         
-
         platform2 = [
             (self.land_up2, 9, 400, 230),
         ]
@@ -392,73 +391,188 @@ class Coordinates(EnvironmentFrames):
 
 
 
-    # def level3(self):
+    def level3(self):
 
-    #     platform1 = [
-    #         (self.land_up[2], 9, 0, 600),
-    #         (self.land_middle[1], 9, 0, 620),
-    #         (self.land_middle[1], 9, 0, 640),
-    #         (self.land_middle[1], 9, 0, 660),
-    #         (self.land_middle[1], 9, 0, 680),
-    #         (self.land_middle[1], 9, 0, 700),
-    #         (self.land_middle[1], 9, 0, 720),
-    #         (self.land_middle[1], 9, 0, 740),
-    #         (self.land_middle[1], 9, 0, 760),
-    #         (self.land_middle[1], 9, 0, 780),
-    #         (self.land_middle[1], 9, 0, 800)
+        self.initial_coordinates_soldier = (100, 400)
+        self.initial_coordinates_enemies = ()
 
-    #         # (self.land_middle[1], 9, 620, 40, 'y'),
-    #         # (self.land_middle[1], 9, 620, 60, 'y'),
-    #         # (self.land_middle[1], 9, 620, 80, 'y'),
-    #         # (self.land_middle[1], 9, 620, 100, 'y'),
-    #         # (self.land_middle[1], 9, 620, 120, 'y'),
-    #         # (self.land_middle[1], 9, 620, 140, 'y'),
-    #         # (self.land_middle[2], 9, 620, 160, 'y'),
+        background = [
 
-    #     ]
+            # background
+            (self.background_cave2, 1, -102, 305),
+
+            # Platform 1
+            (self.wood_middle2, 2, 520, 160,'y'),
+            (self.wood_middle2, 12, 560, 220,'y'),
+            (self.land_middle1, 14, 520, 0,'y'),
+            (self.land_middle1, 14, 520, 20,'y'),
+            (self.land_middle1, 14, 520, 40,'y'),
+            (self.land_middle1, 14, 520, 60,'y'),
+            (self.land_middle1, 14, 520, 80,'y'),
+            (self.land_middle1, 14, 520, 100,'y'),
+            (self.land_middle1, 14, 520, 120,'y'),
+            (self.land_middle1, 14, 520, 140,'y'),
+            (self.land_middle1, 12, 560, 160,'y'),
+            (self.land_middle1, 12, 560, 180,'y'),
+            (self.land_middle1, 12, 560, 200,'y'),
+            (self.border_cave_right, 25, 320, 320, 'y'),
+
+            #platform2
+            (self.land_middle0, 16, 480, 400, 'y'),
+            (self.land_middle2, 12, 580, 700, 'y'),
+            (self.land_middle1, 16, 480, 420,'y'),
+            (self.land_middle1, 16, 480, 440,'y'),
+            (self.land_middle1, 16, 480, 460,'y'),
+            (self.land_middle1, 16, 480, 480,'y'),
+            (self.land_middle1, 16, 480, 500,'y'),
+            (self.land_middle1, 16, 480, 520,'y'),
+            (self.land_middle1, 16, 480, 540,'y'),
+            (self.land_middle1, 16, 480, 560,'y'),
+
+            (self.land_middle1, 12, 580, 580,'y'),
+            (self.land_middle1, 12, 560, 600,'y'),
+            (self.land_middle1, 12, 560, 620,'y'),
+            (self.land_middle1, 12, 560, 640,'y'),
+            (self.land_middle1, 12, 560, 660,'y'),
+            (self.land_middle1, 12, 560, 680,'y'),
+
+            #platform3
+            (self.land_middle0, 12, 580, 780, 'y'),
+            (self.land_middle0, 2, 540, 900, 'y'),
+            (self.land_middle1, 12, 580, 800,'y'),
+            (self.land_middle1, 12, 580, 820,'y'),
+            (self.land_middle1, 12, 580, 840,'y'),
+            (self.land_middle1, 12, 580, 860,'y'),
+            (self.land_middle1, 12, 580, 880,'y'),
+            (self.land_middle1, 12, 580, 900,'y'),
+            (self.land_middle1, 14, 540, 920,'y'),
+            (self.land_middle1, 14, 540, 940,'y'),
+            (self.land_middle1, 14, 540, 960,'y'),
+            (self.land_middle1, 14, 540, 980,'y'),
+            (self.land_middle1, 14, 540, 1000,'y'),
+            (self.land_middle1, 14, 540, 1020,'y'),
+            (self.land_middle1, 14, 540, 1040,'y'),
+            (self.land_middle1, 14, 540, 1060,'y'),
+            (self.land_middle1, 14, 540, 1080,'y'),
+            (self.land_middle1, 14, 540, 1100,'y'),
+            (self.land_middle1, 14, 540, 1120,'y'),
+            (self.land_middle1, 14, 540, 1160,'y'),
+            (self.land_middle1, 14, 540, 1140,'y'),
+            (self.land_middle1, 14, 540, 1180,'y'),
+
+
+            # Air platforms
+            (self.land_middle1, 10, 600, 320),
+            (self.land_down1, 10, 600, 340),
+            (self.land_middle0, 2, 320, 600, 'y'),
+            (self.land_middle2, 2, 320, 780, 'y'),
+
+            (self.land_middle1, 10, 860, 190),
+            (self.land_down1, 10, 860, 210),
+            (self.land_middle0, 2, 190, 860, 'y'),
+            (self.land_middle2, 2, 190, 1040, 'y'),
+
+            (self.land_middle1, 10, 460, 80),
+            (self.land_down1, 10, 460, 100),
+            (self.land_middle0, 2, 80, 460, 'y'),
+            (self.land_middle2, 2, 80, 640, 'y'),
+
+
+            # Environment
+            (self.rock, 1, 200, 281),
+            (self.rock, 1, 660, 541),
+            (self.rock, 1, 980, 151),
+            (self.mushroom, 1, 100, 288),
+            (self.mushroom, 1, 660, 288),
+            (self.mushroom, 1, 500, 48),
+            (self.bush, 1, 1100, 485),
+            (self.grass0, )
+
+
+        ]
+
+        platform1 = [
+            (self.land_up1, 17, 0, 300)
+        ]
         
+        platform2 = [
+            (self.wood_up1, 9, 0, 500)
+        ]
 
-    #     platform2 = [
-    #         (self.land_up[2], 1, 400, 600)
-    #     ]
+        platform3 = [
+            (self.wood_up1, 3, 180, 540)
+        ]
 
-    #     platform3 = [
-    #         (self.land_up[2], 6, 700, 600), 
-    #         (self.land_up[2], 6, 700, 620),
-    #         (self.land_up[2], 6, 700, 640),
-    #         (self.land_up[2], 6, 700, 660),
-    #         (self.land_up[2], 6, 700, 680),
-    #         (self.land_up[2], 6, 700, 700)
-    #     ]
+        platform4 = [
+            (self.land_up1, 10, 400, 460)
+        ]
 
-    #     platform4 = [
-    #         (self.land_up[2], 6, 900, 600), 
-    #         (self.land_up[2], 6, 900, 620),
-    #         (self.land_up[2], 6, 900, 640),
-    #         (self.land_up[2], 6, 900, 660),
-    #         (self.land_up[2], 6, 900, 680),
-    #         (self.land_up[2], 6, 900, 700)
-    #     ]
+        platform4_2 = [
+            (self.land_middle2, 5, 480, 580, 'y'),
+        ]
 
-    #     level = [platform1, platform2, platform3, platform4]
+        platform5 = [
+            (self.land_up1, 6, 600, 560)
+        ]
 
-    #     return level
+        platform6 = [
+            (self.land_up1, 6, 780, 560)
+        ]
+
+        platform7 = [
+            (self.land_up1, 15, 900, 520)
+        ]
+
+        platform8 = [
+            (self.land_up1, 10, 600, 300)
+        ]
+
+        platform9 = [
+            (self.land_up1, 10, 860, 170)
+        ]
+
+        platform10 = [
+            (self.land_up1, 10, 460, 60)
+        ]
+
+        stairs = [
+            (self.stairs, 7, 300, 40, 'y'),
+        ]
+
+        stairs2 = [
+            (self.stairs, 14, 170, 920, 'y'),
+        ]
+
+        stairs3 = [
+            (self.stairs, 9, 60, 620, 'y'),
+        ]
 
 
 
 
 
+        level = {
+            'background' : background,
+            'platform1' : platform1,
+            'platform2' : platform2,
+            'platform3' : platform3,
+            'platform4' : platform4,
+            'platform4_2' : platform4_2,
+            'platform5' : platform5,
+            'platform6' : platform6,
+            'platform7' : platform7,
+            'platform8' : platform8,
+            'platform9' : platform9,
+            'platform10' : platform10,
+            'stairs' : stairs,
+            'stairs2' : stairs2,
+            'stairs3' : stairs3
+        }
 
-    # self.repeat(self.cave_edges_up[0], 44, 320, 350)
-    # self.repeat(self.cave_edges_middle[0], 44, 320, 370)
-    # self.repeat(self.cave_edges_down[0], 44, 320, 390)
-    
+        return level
 
-    # self.screen.blit(self.stone_grass[3], (160, 270))
-    # self.screen.blit(self.stone_grass[1], (330, 250))
-    # self.screen.blit(self.stone_grass[2], (360, 250))
-    # self.screen.blit(self.stone_grass[3], (390, 250))
-    # self.screen.blit(self.stone_grass[0], (160, 270))
+
+
 
 
 class Platform(pygame.sprite.Sprite):

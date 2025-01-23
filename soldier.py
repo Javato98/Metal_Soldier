@@ -160,7 +160,10 @@ class Soldier(Sprite):
 
     def detect_stairs(self, inside_stairs):
         if inside_stairs and (self.rect.bottom -9 >= self.stairs_rect.top or self.rect.top > self.stairs_rect.bottom):
+            pygame.draw.rect(self.screen, (0, 0, 255), self.stairs_rect)
             self.image = self.animation_crawl_stairs_back[3]
+
+        return self.stairs_rect
 
 
 
@@ -254,7 +257,7 @@ class Soldier(Sprite):
         for platform in self.platforms:
             if isinstance(platform, Stairs):
                 if self.rect.colliderect(platform.rect):
-                    return True
+                    return platform
 
                 
     
@@ -273,25 +276,23 @@ class Soldier(Sprite):
         '''Animación del subir y bajar escaleras'''
 
         platforms = self.levels.make_platforms()
+        stairs = self.check_stairs()
 
-        if self.check_stairs():
-            for platform in platforms:
-                if isinstance(platform, Stairs):
-                    stairs = platform
-            
-                    if self.move_stairs_down:
-                        self.animation(self.animation_crawl_stairs_back, current_time)
-                        self.rect.x = stairs.rect.x - 30
-                        self.rect.y += 1
+        if stairs:
+        
+            if self.move_stairs_down:
+                self.animation(self.animation_crawl_stairs_back, current_time)
+                self.rect.x = stairs.rect.x - 30
+                self.rect.y += 1
 
-                    elif self.move_stairs_up and self.rect.bottom -9 >= self.stairs_rect.top:
-                        self.animation(self.animation_crawl_stairs_back, current_time)
-                        self.rect.x = stairs.rect.x - 30
-                        self.rect.y -= 1
+            elif self.move_stairs_up:
+                self.animation(self.animation_crawl_stairs_back, current_time)
+                self.rect.x = stairs.rect.x - 30
+                self.rect.y -= 1
 
-                    else: # Empiece la animación de crawl_stairs en cuanto el soldado se pone en contacto con las escaleras
-                        if self.rect.y > stairs.rect.y:
-                            self.image = self.animation_crawl_stairs_back[0]
+            else: # Empiece la animación de crawl_stairs en cuanto el soldado se pone en contacto con las escaleras
+                if self.rect.y > stairs.rect.y:
+                    self.image = self.animation_crawl_stairs_back[0]
 
 
 

@@ -16,7 +16,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level2()
+        self.coord_level = self.coordinates.level3()
 
         
         
@@ -130,7 +130,7 @@ class Levels(Environment):
                     continue
                 
                 rect = pygame.Rect(x, y, width, height)
-                if clave == 'stairs':
+                if 'stairs' in clave:
                     platform = Stairs(rect)
                 else:
                     platform = Platform(rect)

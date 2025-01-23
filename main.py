@@ -256,7 +256,7 @@ class Metal_soldier():
         self.update_bullet()
         self.soldier.blitme()
 
-  # Dibujamos las balas
+        # Dibujamos las balas
 
         for enemy in self.enemies.sprites():
             enemy.blitme()
