@@ -155,7 +155,6 @@ class Coordinates(EnvironmentFrames):
 
         background = [
             
-
             #Platform 1
             (self.land_middle1, 9, 160, 250),
             (self.land_down1, 9, 160, 270),
@@ -393,7 +392,7 @@ class Coordinates(EnvironmentFrames):
 
     def level3(self):
 
-        self.initial_coordinates_soldier = (100, 400)
+        self.initial_coordinates_soldier = (80, 400)
         self.initial_coordinates_enemies = ()
 
         background = [
@@ -477,19 +476,33 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle0, 2, 80, 460, 'y'),
             (self.land_middle2, 2, 80, 640, 'y'),
 
-
             # Environment
             (self.rock, 1, 200, 281),
             (self.rock, 1, 660, 541),
-            (self.rock, 1, 980, 151),
-            (self.mushroom, 1, 100, 288),
+            (self.rock, 1, 1000, 151),
+            (self.mushroom, 1, 160, 288),
             (self.mushroom, 1, 660, 288),
             (self.mushroom, 1, 500, 48),
-            (self.bush, 1, 1100, 485),
-            (self.grass0, )
+            (self.bush, 1, 520, 30),
+            (self.tree, 1, 1000, 400),
+            (self.grass0, 6, 20, 280),
+            (self.grass0, 4, 260, 280),
+            (self.grass1, 6, 440, 440),
+            (self.grass0, 4, 820, 540),
+            (self.grass0, 13, 940, 500),
+            (self.grass0, 5, 700, 280),
+            (self.grass0, 6, 860, 150),
+            (self.grass0, 5, 460, 60),
 
+            (self.death_poster, 1, 120, 475),
+            (self.bones, 2, 20, 486),
+            (self.bones2, 1, 200, 530),
+            (self.tribal_box, 1, 115, 370),
+            (self.tribal_box_small, 1, 210, 380)
 
         ]
+
+
 
         platform1 = [
             (self.land_up1, 17, 0, 300)
