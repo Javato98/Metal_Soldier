@@ -3,12 +3,25 @@ from environment_frames import EnvironmentFrames
 
 
 
+
 class Coordinates(EnvironmentFrames):
 
     def __init__(self, ms_game) -> None:
         super().__init__(ms_game)
 
         self.flag_cave = False
+
+
+    def level0(self):
+        self.initial_coordinates_soldier = ((-100, -100))
+        self.initial_coordinates_enemies = ()
+
+
+        level = {
+
+            }
+        
+        return level
 
 
 

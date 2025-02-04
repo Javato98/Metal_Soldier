@@ -6,7 +6,8 @@ from soldier import Soldier
 from bullet import Bullet
 from environment import Environment, Levels
 from enemies import Enemy
-from coordenates_levels import Coordinates
+from main_menu import Menu
+
 
 
 class Metal_soldier():
@@ -23,6 +24,7 @@ class Metal_soldier():
         self.soldier = Soldier(self)
         self.bullets = pygame.sprite.Group()
         self.enemies = pygame.sprite.Group()
+        self.main_menu = Menu(self)
         self.clock = pygame.time.Clock()
         
         self.platforms = self.levels.make_platforms()
@@ -239,7 +241,7 @@ class Metal_soldier():
         self.screen.fill(self.settings.bg_screen) # Actualiza el color del fondo de la pantalla
         
         self.levels.background()
-
+        self.environment.update_level()
 
 
         self.soldier.detecter_collision()
@@ -255,6 +257,7 @@ class Metal_soldier():
 
         self.update_bullet()
         self.soldier.blitme()
+        self.main_menu.create_menu()
 
   # Dibujamos las balas
 
@@ -269,9 +272,10 @@ class Metal_soldier():
 
         while True:
             
+
             self.check_events()
             self.update_screen()
-            
+        
     
             pygame.display.flip()
             self.clock.tick(45) # Mantén un framerate constante de 60 FPS

@@ -1,7 +1,6 @@
 import pygame
 from coordenates_levels import Coordinates, Platform, Stairs
-
-
+from main_menu import Menu
 
 class Environment():
     
@@ -10,15 +9,38 @@ class Environment():
         
         self.screen = ms_game.screen
         self.coordinates = Coordinates(ms_game)
+        
         self.platform_sprites = pygame.sprite.Group()
 
         self.screen = ms_game.screen
+        self.main_menu = Menu(ms_game)
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level1()
 
-        
+        self.main_menu_flag = True
+        self.level0_flag = True
+        self.level1_flag = False
+        self.level2_flag = False
+        self.level3_flag = False
+
+        self.update_level()
+
+
+
+    def update_level(self):
+
+        if self.level0_flag:
+            self.coord_level = self.coordinates.level0()
+        elif self.level1_flag:
+            self.coord_level = self.coordinates.level1()
+        elif self.level2_flag:
+            self.coord_level = self.coordinates.level2()
+        elif self.level3_flag:
+            self.coord_level = self.coordinates.level3()
+        if self.main_menu_flag:
+            self.main_menu.create_menu()
+
         
 
     def repeat(self, image, repeat,  eje_x, eje_y, direction='x'):
@@ -85,12 +107,20 @@ class Levels(Environment):
         self.coordinates_soldier = self.coordinates.initial_coordinates_soldier
         self.enemies_count = len(self.coordinates.initial_coordinates_enemies)
         self.coodinates_enemies = self.coordinates.initial_coordinates_enemies
+        self.image_back_x = 0
 
     
     def background(self):
         
-        self.repeat(self.coordinates.image_back, 2, 0, 0)
+        self.repeat(self.coordinates.image_back, 6, self.image_back_x, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
+        
+        if self.main_menu_flag:
+            self.image_back_x -= 1
+            if self.image_back_x < -2400:
+                self.image_back_x = 0
+
+        
 
         if self.coordinates.flag_cave:
             self.repeat(self.coordinates.background_cave, 1, 0, 290)
