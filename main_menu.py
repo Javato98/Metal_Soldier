@@ -31,7 +31,6 @@ class Menu():
 
             
     def create_menu(self):
-        self.title()
         for button in self.buttons:
             button.draw_button()
             
@@ -46,8 +45,7 @@ class Button():
         self.screen_rect = self.screen.get_rect()
 
         # EConfigura las dimensiones y propiedades del botón
-        self.width, self.height = 200, 0
-        self.button_color = (30, 30, 30)
+        self.width, self.height = 200, 80
         self.text_color = (255, 255, 58)
         self.font = pygame.font.Font("resources/fonts/Retro Gaming.ttf", 48)
 
@@ -69,7 +67,6 @@ class Button():
 
     def draw_button(self):
         '''Dibuja un botón en blanco y luego el mensaje'''
-        self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
         
