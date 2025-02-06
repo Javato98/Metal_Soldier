@@ -34,6 +34,8 @@ class EnvironmentFrames():
         self.wood_down0 = self.make_image('surfaces\\wood_down0.png')
         self.wood_down1 = self.make_image('surfaces\\wood_down1.png')
         self.wood_down2 = self.make_image('surfaces\\wood_down2.png')
+        self.stone0 = self.make_image("surfaces\\stone0.png")
+        self.stone1 = self.make_image("surfaces\\stone1.png")
         
         
 
@@ -92,7 +94,6 @@ class EnvironmentFrames():
         self.tree = self.make_image('props\\tree.png')
         self.tribal_box = self.make_image('props\\tribal_box.png')
         self.tribal_box_small = self.make_image('props\\tribal_box_small.png')
-
 
 
         self.land_up = [self.land_up0, self.land_up1, self.land_up2]

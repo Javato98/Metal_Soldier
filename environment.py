@@ -16,7 +16,7 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level3()
+        self.coord_level = self.coordinates.level1()
 
         
         
@@ -93,7 +93,7 @@ class Levels(Environment):
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
 
         if self.coordinates.flag_cave:
-            self.repeat(self.coordinates.background_cave, 1, 0, 290)
+            self.repeat(self.coordinates.background_cave, 1, 0, 310)
         self.flag_soil = False
         
 

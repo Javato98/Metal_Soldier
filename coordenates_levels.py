@@ -16,7 +16,7 @@ class Coordinates(EnvironmentFrames):
 
         self.flag_cave = True
 
-        self.initial_coordinates_soldier = (100, 540)
+        self.initial_coordinates_soldier = (40, 540)
         self.initial_coordinates_enemies = ((650, 500), (700, 100), (1100, 400))
 
         background = [
@@ -61,20 +61,16 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle1, 20, 800, 560),
             (self.wood_middle0, 1, 800, 560),
 
-            # Platform 5
-            (self.land_middle1, 60, 0, 280),
-            (self.land_down1, 60, 0, 300),
+            # Platform 5            
             (self.house, 1, 100, 120),
             (self.rock, 1, 600, 240),
             (self.mushroom, 1, 260, 247),
-            (self.mushroom, 1, 1100, 247),
             (self.mushroom, 1, 470, 247),
             (self.bush, 1, 800, 225),
             (self.grass1, 1, 100, 240),
             (self.grass1, 1, 300, 240),
             (self.grass0, 1, 340, 240),
             (self.grass1, 1, 500, 240),
-            (self.grass0, 1, 900, 240),
             (self.grass0, 1, 140, 240),
             (self.grass1, 1, 200, 240),
             (self.grass1, 1, 220, 240),
@@ -104,6 +100,26 @@ class Coordinates(EnvironmentFrames):
             (self.liana2, 1, 350, 300),
             (self.liana1, 1, 650, 300),
             (self.liana2, 1, 870, 300),
+            (self.death_poster, 1, 160, 575),
+
+            (self.stone1, 1, 50, 740),
+            (self.stone1, 1, 140, 660),
+            (self.stone0, 1, 140, 600),
+            (self.stone0, 1, 160, 760),
+            (self.stone0, 1, 20, 620),
+            
+
+            (self.stone0, 1, 640, 660),
+            (self.stone0, 1, 540, 740),
+            (self.stone0, 1, 460, 640),
+            (self.stone1, 1, 500, 780),
+
+            (self.stone0, 1, 1100, 780),
+            (self.stone0, 1, 900, 680),
+            (self.stone1, 1, 1140, 640),
+            (self.stone1, 1, 860, 740),
+            (self.stone1, 1, 980, 740),
+            (self.stone1, 1, 980, 560),
 
 	    ]
 
@@ -120,14 +136,18 @@ class Coordinates(EnvironmentFrames):
             ]
             
         platform5 = [ 
-            (self.land_up2, 60, 0, 260),
-            (self.land_middle1, 60, 0, 280),
-            (self.land_down1, 60, 0, 300)
+            (self.land_up2, 45, 0, 260),
+            (self.land_middle1, 45, 0, 280),
+            (self.land_down1, 45, 0, 300),
+            ]
+
+        platform6 = [ 
+            (self.land_up2, 15, 900, 300),
             ]
         
   
         stairs = [
-            (self.stairs, 10, 260, 1000, 'y')
+            (self.stairs, 8, 300, 1000, 'y')
             ]
 
         level = {
@@ -137,6 +157,7 @@ class Coordinates(EnvironmentFrames):
             'platform3' : platform3,
             'platform4' : platform4,
             'platform5' : platform5,
+            'platform6' : platform6,
             'stairs' : stairs
             }
 
@@ -498,7 +519,32 @@ class Coordinates(EnvironmentFrames):
             (self.bones, 2, 20, 486),
             (self.bones2, 1, 200, 530),
             (self.tribal_box, 1, 115, 370),
-            (self.tribal_box_small, 1, 210, 380)
+            (self.tribal_box_small, 1, 210, 380),
+            (self.stone0, 1, 60, 560),
+            (self.stone1, 1, 70, 600),
+            (self.stone1, 1, 50, 740),
+            (self.stone1, 1, 140, 660),
+            (self.stone0, 1, 140, 600),
+            (self.stone0, 1, 160, 760),
+            (self.stone0, 1, 20, 620),
+            
+            (self.stone0, 1, 420, 500),
+            (self.stone0, 1, 640, 660),
+            (self.stone0, 1, 540, 740),
+            (self.stone0, 1, 460, 640),
+            (self.stone1, 1, 500, 780),
+            (self.stone1, 1, 460, 540),
+            (self.stone1, 1, 560, 580),
+
+            (self.stone0, 1, 800, 620),
+            (self.stone0, 1, 1100, 780),
+            (self.stone0, 1, 900, 680),
+            (self.stone1, 1, 1140, 640),
+            (self.stone1, 1, 860, 740),
+            (self.stone1, 1, 980, 740),
+            (self.stone1, 1, 980, 560),
+
+
 
         ]
 
