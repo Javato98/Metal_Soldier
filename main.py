@@ -287,7 +287,7 @@ class Metal_soldier():
 
         if self.levels.main_menu_flag:
             if self.flag_animation_transition:
-                self.environment.fade(speed=3)
+                self.environment.fade(speed=1)
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
         else:

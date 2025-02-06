@@ -20,22 +20,14 @@ class Environment():
 
 
 
-    def fade(self, fade_out=True, speed=5):
+    def fade(self, fade_out=True, speed=3):
 
         fade_surface = pygame.Surface((1200, 800))
         fade_surface.fill((0, 0, 0))
         
-        # FADE OUT (Se va oscureciendo)
-        for alpha in range(0, 255, speed):
-            fade_surface.set_alpha(alpha)
-            self.screen.blit(fade_surface, (0, 0))
-            pygame.display.update()
-            pygame.time.delay(20)  # Ajusta este valor para controlar la duración
-
-        self.main_menu.create_menu()
-        
         # FADE IN (Vuelve a aparecer el juego)
-        for alpha in range(255, -1, -speed):
+        for alpha in range(255, 0, -speed):
+            self.main_menu.title()
             fade_surface.set_alpha(alpha)
             self.screen.blit(fade_surface, (0, 0))
             pygame.display.update()
