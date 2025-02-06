@@ -1,7 +1,6 @@
 import pygame
 from coordenates_levels import Coordinates, Platform, Stairs
-
-
+from main_menu import Menu
 
 class Environment():
     
@@ -10,16 +9,41 @@ class Environment():
         
         self.screen = ms_game.screen
         self.coordinates = Coordinates(ms_game)
+        
         self.platform_sprites = pygame.sprite.Group()
 
         self.screen = ms_game.screen
+        self.main_menu = Menu(ms_game)
 
         self.list_soil = []
         self.flag_soil = True
-        self.coord_level = self.coordinates.level1()
 
+
+
+    def fade(self, fade_out=True, speed=5):
+
+        fade_surface = pygame.Surface((1200, 800))
+        fade_surface.fill((0, 0, 0))
         
+        # FADE OUT (Se va oscureciendo)
+        for alpha in range(0, 255, speed):
+            fade_surface.set_alpha(alpha)
+            self.screen.blit(fade_surface, (0, 0))
+            pygame.display.update()
+            pygame.time.delay(20)  # Ajusta este valor para controlar la duración
+
+        self.main_menu.create_menu()
         
+        # FADE IN (Vuelve a aparecer el juego)
+        for alpha in range(255, -1, -speed):
+            fade_surface.set_alpha(alpha)
+            self.screen.blit(fade_surface, (0, 0))
+            pygame.display.update()
+            pygame.time.delay(20)
+
+
+
+
 
     def repeat(self, image, repeat,  eje_x, eje_y, direction='x'):
         '''Repetimos la imagen las veces necesarias para crear la que nos interesa. 
@@ -40,8 +64,6 @@ class Environment():
 
             self.list_soil = self.surface_soil_boundaries(image, repeat, eje_x, eje_y)
         
-
-
 
 
     def surface_soil_boundaries(self, image, repeat, eje_x, eje_y):
@@ -82,15 +104,47 @@ class Levels(Environment):
     def __init__(self, ms_game):
         super().__init__(ms_game)
 
+        self.coord_level = self.coordinates.level0()
+
+        self.main_menu_flag = True
+        self.level1_flag = False
+        self.level2_flag = False
+        self.level3_flag = False
+
+
+
+
+    def update_level(self):
+        if self.main_menu_flag:
+            pass
+        elif self.level1_flag:
+            self.fade()
+            self.coord_level = self.coordinates.level1()
+        elif self.level2_flag:
+            self.coord_level = self.coordinates.level2()
+        elif self.level3_flag:
+            self.coord_level = self.coordinates.level3()
+
         self.coordinates_soldier = self.coordinates.initial_coordinates_soldier
         self.enemies_count = len(self.coordinates.initial_coordinates_enemies)
         self.coodinates_enemies = self.coordinates.initial_coordinates_enemies
+        self.image_back_x = 0
+
 
     
     def background(self):
         
-        self.repeat(self.coordinates.image_back, 2, 0, 0)
+        self.repeat(self.coordinates.image_back, 6, self.image_back_x, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
+        
+        
+        if self.main_menu_flag:
+            self.main_menu.title()
+            self.image_back_x -= 1
+            if self.image_back_x < -2400:
+                self.image_back_x = 0
+
+        
 
         if self.coordinates.flag_cave:
             self.repeat(self.coordinates.background_cave, 1, 0, 310)
