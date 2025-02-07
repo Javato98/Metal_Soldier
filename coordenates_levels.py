@@ -9,8 +9,6 @@ class Coordinates(EnvironmentFrames):
     def __init__(self, ms_game) -> None:
         super().__init__(ms_game)
 
-        self.flag_cave = False
-
 
     def level0(self):
         self.initial_coordinates_soldier = ((-100, -100))
@@ -27,7 +25,6 @@ class Coordinates(EnvironmentFrames):
 
     def level1(self):
 
-        self.flag_cave = True
 
         self.initial_coordinates_soldier = (40, 540)
         self.initial_coordinates_enemies = ((650, 500), (700, 100), (1100, 400))

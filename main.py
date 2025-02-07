@@ -42,7 +42,7 @@ class Metal_soldier():
         self._event_hover()
 
         for event in pygame.event.get():
-            if self.levels.main_menu_flag:
+            if self.levels.level_flag == 0:
                 self._event_click(event)
 
             if event.type == pygame.QUIT:
@@ -147,7 +147,7 @@ class Metal_soldier():
         mouse_pos = pygame.mouse.get_pos()
         for i, button in enumerate(self.main_menu_buttons):
             if button.msg_image_rect.collidepoint(mouse_pos):
-                button.text_color = (0, 50, 255)
+                button.text_color = (255, 121, 64)
             else:
                 button.text_color = (255, 255, 58)
 
@@ -160,8 +160,6 @@ class Metal_soldier():
             for button in self.main_menu_buttons:
                 if button.msg_image_rect.collidepoint(event.pos):
                     if button == self.main_menu_buttons[0]:
-                        self.levels.main_menu_flag = False
-                        self.levels.level1_flag = True
                         self.levels.update_level()
                         self.create_characters()
 
@@ -241,6 +239,10 @@ class Metal_soldier():
         '''Muertes del enemigo, apuñalado o disparado'''
         self.knife_kill()
         self.bullet_kill()
+        
+        if len(self.enemies) <= 0:
+            self.levels.update_level()
+            self.create_characters()
 
 
         
@@ -273,6 +275,8 @@ class Metal_soldier():
                 if bullet.rect.colliderect(self.soldier):
                     self.bullets.remove(bullet) 
                     self.soldier.be_shot += 1
+        
+
 
 
     
@@ -285,9 +289,9 @@ class Metal_soldier():
         
         self.levels.background()
 
-        if self.levels.main_menu_flag:
+        if self.levels.level_flag == 0:
             if self.flag_animation_transition:
-                self.environment.fade(speed=1)
+                # self.environment.fade(speed=2)
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
         else:
@@ -316,11 +320,9 @@ class Metal_soldier():
         '''Motor del juego'''
 
         while True:
-            
 
             self.check_events()
             self.update_screen()
-        
     
             pygame.display.flip()
             self.clock.tick(45) # Mantén un framerate constante de 60 FPS

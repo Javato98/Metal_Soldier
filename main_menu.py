@@ -10,16 +10,28 @@ class Menu():
         self.desplace_button_position = 0
         self.buttons = []
 
+        self.title_image = pygame.image.load("resources/fonts/title.png").convert_alpha()
+        self.title_level1_image = pygame.image.load("resources/fonts/title-level1.png").convert_alpha()
+        self.title_level2_image = pygame.image.load("resources/fonts/title-level2.png").convert_alpha()
+        self.title_level3_image = pygame.image.load("resources/fonts/title-level3.png").convert_alpha()
+
         self.create_buttons()
 
     def title(self):
-        title_image = pygame.image.load("resources/fonts/title.png").convert_alpha()
+        title_image = self.title_image.copy()
         title_image_rect = title_image.get_rect()
         title_image_rect.center = self.screen_rect.center
         title_image_rect.y -= 200
         self.screen.blit(title_image, title_image_rect)
 
-    
+
+    def title_level(self, level):
+        title_image = level.copy()  
+        title_image_rect = title_image.get_rect()
+        title_image_rect.center = self.screen_rect.center
+        title_image_rect.y += 50
+        self.screen.blit(title_image, title_image_rect)
+
 
     def create_buttons(self):
         for text in self.button_texts:

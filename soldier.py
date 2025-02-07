@@ -1,5 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
+
 from settings import Settings
 from paths import Paths
 from environment import  Stairs
@@ -384,8 +385,8 @@ class Soldier(Sprite):
 
         self.screen.blit(self.image, self.rect)
 
-        # for platform in self.platforms:
+        for platform in self.platforms:
 
-        #     pygame.draw.rect(self.screen, (255,0,0), platform.rect)
+            pygame.draw.rect(self.screen, (255,0,0), platform.rect)
 
     
