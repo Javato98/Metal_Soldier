@@ -6,6 +6,7 @@ from soldier import Soldier
 from bullet import Bullet
 from environment import Environment, Levels
 from enemies import Enemy
+from main_menu import Menu
 
 
 
@@ -20,21 +21,30 @@ class Metal_soldier():
         self.screen = self.settings.screen
         self.environment = Environment(self)
         self.levels = Levels(self)
-        self.soldier = Soldier(self)
         self.bullets = pygame.sprite.Group()
-        self.enemies = pygame.sprite.Group()
+        self.main_menu = Menu(self)
         self.clock = pygame.time.Clock()
         
         self.platforms = self.levels.make_platforms()
+        self.main_menu_buttons = self.main_menu.buttons
+
+        self.flag_animation_transition = True
      
+        self.levels.update_level()
         self.make_enemies()
+        
+        
 
 
 
     def check_events(self):
         '''Gestionamos los eventos del juego'''
+        self._event_hover()
 
         for event in pygame.event.get():
+            if self.levels.main_menu_flag:
+                self._event_click(event)
+
             if event.type == pygame.QUIT:
                 sys.exit()
 
@@ -133,6 +143,40 @@ class Metal_soldier():
             self.soldier.detect_stairs(inside_stairs)
             
 
+    def _event_hover(self):
+        mouse_pos = pygame.mouse.get_pos()
+        for i, button in enumerate(self.main_menu_buttons):
+            if button.msg_image_rect.collidepoint(mouse_pos):
+                button.text_color = (0, 50, 255)
+            else:
+                button.text_color = (255, 255, 58)
+
+            button = button._prep_msg(self.main_menu.button_texts[i]) 
+                
+
+    def _event_click(self, event):
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for button in self.main_menu_buttons:
+                if button.msg_image_rect.collidepoint(event.pos):
+                    if button == self.main_menu_buttons[0]:
+                        self.levels.main_menu_flag = False
+                        self.levels.level1_flag = True
+                        self.levels.update_level()
+                        self.create_characters()
+
+
+# Tenemos que meter las instrucciones
+                    elif button == self.main_menu_buttons[2]:
+                        sys.exit()
+
+
+    def create_characters(self):
+        self.soldier = Soldier(self)
+        self.enemies = pygame.sprite.Group()
+        self.make_enemies()
+
+
 
 
 
@@ -156,6 +200,7 @@ class Metal_soldier():
                 if self.current_time - character.time_last_shot > 600:
                     self.create_bullet(character)
                     character.time_last_shot = self.current_time
+                    
 
         else:
             self.create_bullet(character)
@@ -240,26 +285,29 @@ class Metal_soldier():
         
         self.levels.background()
 
+        if self.levels.main_menu_flag:
+            if self.flag_animation_transition:
+                self.environment.fade(speed=1)
+                self.flag_animation_transition = False
+            self.main_menu.create_menu()
+        else:
+            self.soldier.detecter_collision()
+            self.kill_enemy()
+            self.kill_us()
 
+            for bullet in self.bullets.sprites():
+                bullet.blitme()  
 
-        self.soldier.detecter_collision()
-        self.kill_enemy()
-        self.kill_us()
+            self.soldier.move(self.current_time)
+            self.enemies.update(self.current_time)
+            self.detect_soldier()
 
-        for bullet in self.bullets.sprites():
-            bullet.blitme()  
+            self.update_bullet()
+            self.soldier.blitme()
 
-        self.soldier.move(self.current_time)
-        self.enemies.update(self.current_time)
-        self.detect_soldier()
+            for enemy in self.enemies.sprites():
+                enemy.blitme()
 
-        self.update_bullet()
-        self.soldier.blitme()
-
-        # Dibujamos las balas
-
-        for enemy in self.enemies.sprites():
-            enemy.blitme()
 
 
 
@@ -269,9 +317,10 @@ class Metal_soldier():
 
         while True:
             
+
             self.check_events()
             self.update_screen()
-            
+        
     
             pygame.display.flip()
             self.clock.tick(45) # Mantén un framerate constante de 60 FPS
