@@ -11,9 +11,7 @@ class Menu():
         self.buttons = []
 
         self.title_image = pygame.image.load("resources/fonts/title.png").convert_alpha()
-        self.title_level1_image = pygame.image.load("resources/fonts/title-level1.png").convert_alpha()
-        self.title_level2_image = pygame.image.load("resources/fonts/title-level2.png").convert_alpha()
-        self.title_level3_image = pygame.image.load("resources/fonts/title-level3.png").convert_alpha()
+
 
         self.create_buttons()
 

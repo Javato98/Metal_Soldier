@@ -41,6 +41,7 @@ class Environment():
 
         fade_surface = pygame.Surface((1200, 800))
         fade_surface.fill((0, 0, 0))
+        title_level_image = pygame.image.load(f"resources/fonts/title-level{level}.png").convert_alpha()
         
         # FADE IN (Vuelve a aparecer el juego)
         for alpha in range(255, 0, -speed):
@@ -54,7 +55,7 @@ class Environment():
 
         # FADE IN (Vuelve a aparecer el juego)
         for alpha in range(255, 0, -speed):
-            self.main_menu.title_level(level)
+            self.main_menu.title_level(title_level_image)
             fade_surface.set_alpha(alpha)
             self.screen.blit(fade_surface, (0, 0))
             self.main_menu.title()
@@ -123,35 +124,33 @@ class Environment():
         
 class Levels(Environment):
 
-    def __init__(self, ms_game):
+    def __init__(self, ms_game , number=1):
         super().__init__(ms_game)
+        self.level_flag = number
 
-        self.coord_level = self.coordinates.level0()
-
-        self.level_flag = -1
-
-
-
-
-    def update_level(self):
-        self.level_flag += 1 
-        print(self.level_flag)
-
-        if self.level_flag == 1:
-            # self.fade_level(self.main_menu.title_level1_image)
-            self.coord_level = self.coordinates.level1()
-        elif self.level_flag == 2:
-            self.fade_level(self.main_menu.title_level2_image)
-            self.coord_level = self.coordinates.level2()
-            print(self.coord_level)
-        elif self.level_flag == 3:
-            self.fade_level(self.main_menu.title_level3_image)
-            self.coord_level = self.coordinates.level3()
+        self.coord_level = self.update_level()
 
         self.coordinates_soldier = self.coordinates.initial_coordinates_soldier
         self.enemies_count = len(self.coordinates.initial_coordinates_enemies)
         self.coodinates_enemies = self.coordinates.initial_coordinates_enemies
         self.image_back_x = 0
+
+
+    def update_level(self):
+        print(self.level_flag)
+        
+        if self.level_flag == 0:
+            self.coord_level = self.coordinates.level0()
+        elif self.level_flag == 1:
+            self.coord_level = self.coordinates.level1()
+        elif self.level_flag == 2:
+            self.coord_level = self.coordinates.level2()
+        elif self.level_flag == 3:
+            self.coord_level = self.coordinates.level3()
+
+
+
+        return self.coord_level
 
 
     
@@ -160,14 +159,11 @@ class Levels(Environment):
         self.repeat(self.coordinates.image_back, 6, self.image_back_x, 0)
         self.repeat(self.coordinates.image_palm, 7, 0, 150)
         
-        
         if self.level_flag == 0:
             self.main_menu.title()
             self.image_back_x -= 1
             if self.image_back_x < -2400:
                 self.image_back_x = 0
-
-        
 
         if self.level_flag == 1:
             self.repeat(self.coordinates.background_cave, 1, 0, 310)

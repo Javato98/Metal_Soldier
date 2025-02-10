@@ -20,7 +20,7 @@ class Metal_soldier():
         self.settings = Settings()
         self.screen = self.settings.screen
         self.environment = Environment(self)
-        self.levels = Levels(self)
+        self.levels = Levels(self, 0)
         self.bullets = pygame.sprite.Group()
         self.main_menu = Menu(self)
         self.clock = pygame.time.Clock()
@@ -29,8 +29,10 @@ class Metal_soldier():
         self.main_menu_buttons = self.main_menu.buttons
 
         self.flag_animation_transition = True
+        self.level_number = 0
      
         self.levels.update_level()
+        self.create_characters()
         self.make_enemies()
         
         
@@ -160,13 +162,14 @@ class Metal_soldier():
             for button in self.main_menu_buttons:
                 if button.msg_image_rect.collidepoint(event.pos):
                     if button == self.main_menu_buttons[0]:
-                        self.levels.update_level()
-                        self.create_characters()
+                        self.level_up()
 
 
 # Tenemos que meter las instrucciones
                     elif button == self.main_menu_buttons[2]:
                         sys.exit()
+
+        
 
 
     def create_characters(self):
@@ -176,12 +179,8 @@ class Metal_soldier():
 
 
 
-
-
     def bullet_detecter_colision(self):
         '''Detecta y elimina las balas que colisionan o que se salen de la pantalla'''
-
-
         collisions = pygame.sprite.groupcollide(self.bullets, self.platforms, True, False)
         
         for bullet in self.bullets:
@@ -241,9 +240,15 @@ class Metal_soldier():
         self.bullet_kill()
         
         if len(self.enemies) <= 0:
-            self.levels.update_level()
-            self.create_characters()
+            self.level_up()
 
+
+    def level_up(self):
+        self.level_number += 1
+        self.levels = Levels(self, self.level_number)
+        self.environment.fade_level(self.level_number)
+        self.platforms = self.levels.make_platforms()
+        self.create_characters()
 
         
     def make_enemies(self):
@@ -295,6 +300,7 @@ class Metal_soldier():
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
         else:
+
             self.soldier.detecter_collision()
             self.kill_enemy()
             self.kill_us()
@@ -308,6 +314,7 @@ class Metal_soldier():
 
             self.update_bullet()
             self.soldier.blitme()
+
 
             for enemy in self.enemies.sprites():
                 enemy.blitme()
