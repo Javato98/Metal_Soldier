@@ -29,7 +29,7 @@ class Metal_soldier():
         self.main_menu_buttons = self.main_menu.buttons
 
         self.flag_animation_transition = True
-        self.level_number = 0
+        self.level_number = 1
      
         self.levels.update_level()
         self.create_characters()
@@ -230,6 +230,7 @@ class Metal_soldier():
             if bullet.character == self.soldier:
                 for enemy in self.enemies:
                     if bullet.rect.colliderect(enemy):
+                        enemy.animation_be_shoted()
                         self.bullets.remove(bullet) 
                         enemy.be_shot += 1
 
@@ -246,7 +247,7 @@ class Metal_soldier():
     def level_up(self):
         self.level_number += 1
         self.levels = Levels(self, self.level_number)
-        self.environment.fade_level(self.level_number)
+        # self.environment.fade_level(self.level_number)
         self.platforms = self.levels.make_platforms()
         self.create_characters()
 
@@ -278,6 +279,7 @@ class Metal_soldier():
         for bullet in self.bullets:
             if bullet.character != self.soldier:
                 if bullet.rect.colliderect(self.soldier):
+                    self.soldier.animation_be_shoted()
                     self.bullets.remove(bullet) 
                     self.soldier.be_shot += 1
         

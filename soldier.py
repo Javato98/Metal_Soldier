@@ -24,12 +24,14 @@ class Soldier(Sprite):
         self.path_image_soldiers_jump = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_jump.png').__str__()
         self.path_image_knife_attack = Paths('resources\\pixel_char_pack\\Player\\Sprites\\Player_knife_attack.png').__str__()
         self.path_image_crawl_stairs = Paths('resources\\pixel_char_pack\\Player\\Sprites\\crawl_stairs.png').__str__()
+        self.path_image_be_shoted_soldier = Paths('resources\\pixel_char_pack\\Player\\Sprites\\player_be_shoted_red.png').__str__()
 
         
         self.image_soldiers_run = pygame.image.load(self.path_image_soldiers_run).convert_alpha()
         self.image_soldiers_jump = pygame.image.load(self.path_image_soldiers_jump).convert_alpha()
         self.image_soldiers_knife_attack = pygame.image.load(self.path_image_knife_attack).convert_alpha()
         self.image_crawl_stairs = pygame.image.load(self.path_image_crawl_stairs).convert_alpha()
+        self.image_be_shoted_soldier = pygame.image.load(self.path_image_be_shoted_soldier).convert_alpha()
 
 
 
@@ -147,8 +149,6 @@ class Soldier(Sprite):
 
 
 
-
-
     def standar_position(self, animation_front, animation_back):
         '''Después de cada animación le establecemos una postura estandar al personaje'''
 
@@ -175,6 +175,10 @@ class Soldier(Sprite):
             self.image = animation[self.frame_index]
             self.frame_index = (self.frame_index + 1) % len(animation) 
             self.frame_timer = current_time
+
+    
+    def animation_be_shoted(self):
+        self.image = self.image_be_shoted_soldier
 
             
     

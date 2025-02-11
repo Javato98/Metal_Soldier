@@ -183,7 +183,7 @@ class Coordinates(EnvironmentFrames):
 
 
         self.initial_coordinates_soldier = (80, 400)
-        self.initial_coordinates_enemies = ((450, 100), (940, 100),(340, 360), (820, 360), (700, 500), (450, 500))
+        self.initial_coordinates_enemies = ((460, 400), (700, 100), (1000, 450), (520, -30))
 
         background = [
 
