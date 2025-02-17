@@ -32,6 +32,7 @@ class Soldier(Sprite):
         self.image_soldiers_knife_attack = pygame.image.load(self.path_image_knife_attack).convert_alpha()
         self.image_crawl_stairs = pygame.image.load(self.path_image_crawl_stairs).convert_alpha()
         self.image_be_shoted_soldier = pygame.image.load(self.path_image_be_shoted_soldier).convert_alpha()
+        self.image_be_shoted_reverse = pygame.transform.flip(self.image_be_shoted_soldier, True, False)
 
 
 
@@ -178,7 +179,11 @@ class Soldier(Sprite):
 
     
     def animation_be_shoted(self):
-        self.image = self.image_be_shoted_soldier
+        if self.look_right:
+            self.image = self.image_be_shoted_soldier
+        else:
+            self.image = self.image_be_shoted_reverse
+        
 
             
     
@@ -234,7 +239,6 @@ class Soldier(Sprite):
             if self.frame_index > 1 or self.stay_in_floor == True: # Para que se mantenga tendido en el suelo
                 self.stay_in_floor = True
                 self.frame_index = 2
-                
 
         else:
             self.standar_position(self.animation_be_covered_front, self.animation_be_covered_back)
@@ -389,8 +393,8 @@ class Soldier(Sprite):
 
         self.screen.blit(self.image, self.rect)
 
-        for platform in self.platforms:
+        # for platform in self.platforms:
 
-            pygame.draw.rect(self.screen, (255,0,0), platform.rect)
+        #     pygame.draw.rect(self.screen, (255,0,0), platform.rect)
 
     

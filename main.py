@@ -29,7 +29,7 @@ class Metal_soldier():
         self.main_menu_buttons = self.main_menu.buttons
 
         self.flag_animation_transition = True
-        self.level_number = 1
+        self.level_number = 0
      
         self.levels.update_level()
         self.create_characters()

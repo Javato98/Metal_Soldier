@@ -22,11 +22,13 @@ class Enemy(Sprite):
         self.path_image_run = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\Enemy{enemie_number}_run.png").__str__()
         self.path_image_fire = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\Enemy{enemie_number}_fire.png").__str__()
         self.path_image_be_shoted_enemy = Paths(f"resources\\pixel_char_pack\\Enemies\\Enemy Patrol\\Enemy{enemie_number}\\Enemy{enemie_number}_sprites\\enemy_be_shoted_red.png").__str__()
+        
 
         # Cargamos la ruta de la imagen
         self.image_run = pygame.image.load(self.path_image_run).convert_alpha()
         self.image_fire = pygame.image.load(self.path_image_fire).convert_alpha()
         self.image_be_shoted_enemy = pygame.image.load(self.path_image_be_shoted_enemy).convert_alpha()
+        self.image_be_shoted_reverse = pygame.transform.flip(self.image_be_shoted_enemy, True, False) 
 
         # Creamos las listas para desarrollar las animaciones
         self.animation_run_front = []
@@ -88,7 +90,12 @@ class Enemy(Sprite):
 
     
     def animation_be_shoted(self):
-        self.image = self.image_be_shoted_enemy
+        if self.look_right:
+            self.image = self.image_be_shoted_enemy
+
+        elif self.look_right == False:
+            self.image = self.image_be_shoted_reverse
+        
 
 
 
