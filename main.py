@@ -7,6 +7,7 @@ from bullet import Bullet
 from environment import Environment, Levels
 from enemies import Enemy
 from main_menu import Menu
+from scoreboard import Scoreboard
 
 
 
@@ -24,6 +25,7 @@ class Metal_soldier():
         self.bullets = pygame.sprite.Group()
         self.main_menu = Menu(self)
         self.clock = pygame.time.Clock()
+        self.scoreboard = Scoreboard(self)
         
         self.platforms = self.levels.make_platforms()
         self.main_menu_buttons = self.main_menu.buttons
@@ -273,18 +275,34 @@ class Metal_soldier():
                 enemy.detect_soldier = False
 
 
-    def kill_us(self):
-        '''Disparamos al enemigo'''
+    def shoot_us(self):
+        '''Nos dispara el enemigo'''
 
         for bullet in self.bullets:
             if bullet.character != self.soldier:
                 if bullet.rect.colliderect(self.soldier):
-                    self.soldier.animation_be_shoted()
-                    self.bullets.remove(bullet) 
-                    self.soldier.be_shot += 1
+                    self.bullets.remove(bullet)
+                    self.shot_received_soldier()
+                    self.remove_endurance_indicator_soldier()
+
+
+    def shot_received_soldier(self):
+        '''Animación y apuntamos el disparo recibido'''
+        self.soldier.animation_be_shoted()
+        self.soldier.be_shot += 1
         
 
+    def remove_endurance_indicator_soldier(self):
+        '''Quitamos el muñeco de ser disparo del scoreboard'''
+        self.soldier.times_touched -= 1
+        self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
 
+
+    def update_hearts_indicator(self):
+        '''Actualizamos el indicador de vida'''
+        self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
+
+        
 
     
     def update_screen(self):
@@ -305,17 +323,25 @@ class Metal_soldier():
 
             self.soldier.detecter_collision()
             self.kill_enemy()
-            self.kill_us()
+            self.shoot_us()
 
             for bullet in self.bullets.sprites():
                 bullet.blitme()  
 
             self.soldier.move(self.current_time)
+            # VAMOS A PONER EL SOLDIER.DEAD A PARTE
+            if self.soldier.dead:
+                #poner dead en true
+                #actualizar hearts y touched
+                pass
+            self.update_hearts_indicator()
             self.enemies.update(self.current_time)
             self.detect_soldier()
 
             self.update_bullet()
             self.soldier.blitme()
+
+            self.scoreboard.draw()
 
 
             for enemy in self.enemies.sprites():

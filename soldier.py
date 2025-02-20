@@ -5,7 +5,6 @@ from settings import Settings
 from paths import Paths
 from environment import  Stairs
 
-
 class Soldier(Sprite):
     '''Creamos el personaje principal del juego'''
 
@@ -52,6 +51,9 @@ class Soldier(Sprite):
         # Variables para llevar a cabo la animación
         self.frame_index = 0
         self.frame_timer = 0
+        self.hearts = 3
+        self.times_touched = 3
+        self.be_shot = 0
 
         # Banderas de movimiento 
         self.move_right = False
@@ -65,6 +67,7 @@ class Soldier(Sprite):
         self.move_stairs_down = False
         self.dead = False
         self.stay_in_floor = False
+        self.drop = True
         
         
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
@@ -116,8 +119,7 @@ class Soldier(Sprite):
         
         self.stairs_rect = self.save_stairs_rect()
 
-        self.drop = True
-        self.be_shot = 0
+        
 
 
     
@@ -376,6 +378,7 @@ class Soldier(Sprite):
             self.dead = True
 
         if self.dead:
+
             self.standar_position(self.animation_die_front, self.animation_die_back)
 
             self.animation(self.animation_frame, current_time, velocity_animation=150)
@@ -386,6 +389,11 @@ class Soldier(Sprite):
                 self.be_shot = 0
                 self.dead = False
                 self.image = self.animation_run_front[3]
+                self.times_touched = 3
+                self.hearts -= 1
+
+                
+                
 
 
 
