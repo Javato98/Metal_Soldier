@@ -39,8 +39,6 @@ class Metal_soldier():
         
         
 
-
-
     def check_events(self):
         '''Gestionamos los eventos del juego'''
         self._event_hover()
@@ -58,7 +56,6 @@ class Metal_soldier():
             elif event.type == pygame.KEYUP:
                 self._events_keyup(event)
                 
-
 
 
     def _events_keydown(self, event):
@@ -87,15 +84,11 @@ class Metal_soldier():
             # Inicializamos el índice de los frames en 0 antes de cualquier evento
             self.soldier.frame_index = 0 
 
-
-                
-
             if event.key == pygame.K_UP:
                 if check_stairs:
                     self.soldier.move_stairs_up = True
                 else:
                     self.soldier.move_jump = True
-
 
             if event.key == pygame.K_DOWN:
                 if check_stairs:
@@ -110,8 +103,6 @@ class Metal_soldier():
 
             if event.key == pygame.K_SPACE:
                 self.fire_bullet(self.soldier)
-
-
 
     
 
@@ -164,6 +155,7 @@ class Metal_soldier():
             for button in self.main_menu_buttons:
                 if button.msg_image_rect.collidepoint(event.pos):
                     if button == self.main_menu_buttons[0]:
+                        self.environment.game_over_menu = False
                         self.level_up()
 
 
@@ -237,6 +229,7 @@ class Metal_soldier():
                         enemy.be_shot += 1
 
 
+
     def kill_enemy(self):
         '''Muertes del enemigo, apuñalado o disparado'''
         self.knife_kill()
@@ -297,10 +290,13 @@ class Metal_soldier():
         '''Quitamos el muñeco de ser disparo del scoreboard'''
         self.soldier.times_touched -= 1
         self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
-        
-        
 
-        
+    
+    def game_over(self):
+
+        if self.soldier.hearts < 1:
+            self.environment.game_over_animation()
+
 
     
     def update_screen(self):
@@ -311,14 +307,16 @@ class Metal_soldier():
         self.screen.fill(self.settings.bg_screen) # Actualiza el color del fondo de la pantalla
         
         self.levels.background()
+        self.game_over()
 
-        if self.levels.level_flag == 0:
+        if self.levels.level_flag == 0 or self.environment.game_over_menu:
             if self.flag_animation_transition:
+                if self.environment.game_over_menu:
+                    self.screen.fill((0, 0, 0))
                 # self.environment.fade(speed=2)
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
         else:
-
             self.soldier.detecter_collision()
             self.kill_enemy()
             self.shoot_us()
@@ -329,8 +327,8 @@ class Metal_soldier():
             self.soldier.move(self.current_time)
             # VAMOS A PONER EL SOLDIER.DEAD A PARTE
             
+            ''' Si el soldado ha muerto actualizamos el scoreboard'''
             if self.soldier.update_indicators:
-                print(self.soldier.dead)
                 self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
                 self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
                 self.soldier.update_indicators = False
@@ -341,6 +339,7 @@ class Metal_soldier():
 
             self.update_bullet()
             self.soldier.blitme()
+            
 
             self.scoreboard.draw()
 

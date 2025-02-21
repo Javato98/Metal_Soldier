@@ -17,6 +17,8 @@ class Environment():
 
         self.list_soil = []
         self.flag_soil = True
+        self.button_game_over = True
+        self.game_over_menu = False
 
 
 
@@ -64,8 +66,31 @@ class Environment():
 
         pygame.time.delay(1000)
 
+    
+    def game_over_animation(self):
+        self.game_over_menu = True
+        initial_time = pygame.time.get_ticks() / 1000 
+        initial_time = round(initial_time)
 
+        while self.button_game_over:
+            current_time = pygame.time.get_ticks() / 1000 
+            current_time = round(current_time)
+            self.screen.fill((0, 0, 0))
+            if current_time % 2 == 0:
+                self.screen.fill((0, 0, 0))
+            else:
+                self.main_menu.title('resources/fonts/title-game-over.png')                   
 
+            pygame.display.update()
+            
+            time_save = current_time - initial_time
+            print(time_save)
+            
+            if time_save > 6:
+                self.main_menu.title('resources/fonts/title-game-over.png') 
+                self.button_game_over = False
+                self.level_flag = 0
+            
 
 
     def repeat(self, image, repeat,  eje_x, eje_y, direction='x'):

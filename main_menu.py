@@ -10,13 +10,11 @@ class Menu():
         self.desplace_button_position = 0
         self.buttons = []
 
-        self.title_image = pygame.image.load("resources/fonts/title.png").convert_alpha()
-
-
         self.create_buttons()
 
-    def title(self):
-        title_image = self.title_image.copy()
+    def title(self, path="resources/fonts/title.png"):
+        create_title_image = pygame.image.load(path).convert_alpha()
+        title_image = create_title_image.copy()
         title_image_rect = title_image.get_rect()
         title_image_rect.center = self.screen_rect.center
         title_image_rect.y -= 200
