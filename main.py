@@ -290,17 +290,15 @@ class Metal_soldier():
         '''Animación y apuntamos el disparo recibido'''
         self.soldier.animation_be_shoted()
         self.soldier.be_shot += 1
+
         
 
     def remove_endurance_indicator_soldier(self):
         '''Quitamos el muñeco de ser disparo del scoreboard'''
         self.soldier.times_touched -= 1
         self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
-
-
-    def update_hearts_indicator(self):
-        '''Actualizamos el indicador de vida'''
-        self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
+        
+        
 
         
 
@@ -330,11 +328,14 @@ class Metal_soldier():
 
             self.soldier.move(self.current_time)
             # VAMOS A PONER EL SOLDIER.DEAD A PARTE
-            if self.soldier.dead:
-                #poner dead en true
-                #actualizar hearts y touched
-                pass
-            self.update_hearts_indicator()
+            
+            if self.soldier.update_indicators:
+                print(self.soldier.dead)
+                self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
+                self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
+                self.soldier.update_indicators = False
+                
+
             self.enemies.update(self.current_time)
             self.detect_soldier()
 

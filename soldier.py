@@ -68,6 +68,7 @@ class Soldier(Sprite):
         self.dead = False
         self.stay_in_floor = False
         self.drop = True
+        self.update_indicators = False
         
         
         # GUARDAMOS LAS IMÁGENES ANIMADAS EN LISTAS
@@ -387,8 +388,9 @@ class Soldier(Sprite):
                 self.rect.x = self.levels.coordinates_soldier[0]
                 self.rect.y = self.levels.coordinates_soldier[1]
                 self.be_shot = 0
-                self.dead = False
                 self.image = self.animation_run_front[3]
+                self.dead = False
+                self.update_indicators = True
                 self.times_touched = 3
                 self.hearts -= 1
 
