@@ -51,7 +51,7 @@ class Soldier(Sprite):
         # Variables para llevar a cabo la animación
         self.frame_index = 0
         self.frame_timer = 0
-        self.hearts = 1
+        self.hearts = 3
         self.times_touched = 3
         self.be_shot = 0
 
@@ -393,6 +393,7 @@ class Soldier(Sprite):
                 self.update_indicators = True
                 self.times_touched = 3
                 self.hearts -= 1
+                print("Hearts: ", self.hearts)
 
 
     def blitme(self):    

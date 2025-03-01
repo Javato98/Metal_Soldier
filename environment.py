@@ -84,12 +84,10 @@ class Environment():
             pygame.display.update()
             
             time_save = current_time - initial_time
-            print(time_save)
             
-            if time_save > 6:
-                self.main_menu.title('resources/fonts/title-game-over.png') 
+            if time_save > 2:
+                self.game_over_menu = True
                 self.button_game_over = False
-                self.level_flag = 0
             
 
 
@@ -162,7 +160,6 @@ class Levels(Environment):
 
 
     def update_level(self):
-        print(self.level_flag)
         
         if self.level_flag == 0:
             self.coord_level = self.coordinates.level0()

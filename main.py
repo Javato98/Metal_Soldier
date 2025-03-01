@@ -32,6 +32,7 @@ class Metal_soldier():
 
         self.flag_animation_transition = True
         self.level_number = 0
+
      
         self.levels.update_level()
         self.create_characters()
@@ -167,7 +168,13 @@ class Metal_soldier():
 
 
     def create_characters(self):
-        self.soldier = Soldier(self)
+        if self.level_number > 1:
+            save_hearts = self.soldier.hearts
+            self.soldier = Soldier(self)
+            self.soldier.hearts = save_hearts
+            self.update_scoreboard()
+        else:
+            self.soldier = Soldier(self)
         self.enemies = pygame.sprite.Group()
         self.make_enemies()
 
@@ -191,8 +198,6 @@ class Metal_soldier():
                 if self.current_time - character.time_last_shot > 600:
                     self.create_bullet(character)
                     character.time_last_shot = self.current_time
-                    
-
         else:
             self.create_bullet(character)
 
@@ -297,6 +302,19 @@ class Metal_soldier():
         if self.soldier.hearts < 1:
             self.environment.game_over_animation()
 
+    def update_scoreboard_new_game(self):
+        if self.environment.game_over_menu:
+            self.levels.level_flag = 0
+            self.level_number = 0
+            self.soldier.hearts = 3
+            self.update_scoreboard()
+
+
+    def update_scoreboard(self):
+        self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
+        self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
+        self.soldier.update_indicators = False
+
 
     
     def update_screen(self):
@@ -308,11 +326,14 @@ class Metal_soldier():
         
         self.levels.background()
         self.game_over()
+        self.update_scoreboard_new_game()
 
-        if self.levels.level_flag == 0 or self.environment.game_over_menu:
+
+        if self.levels.level_flag == 0:
+            if self.environment.game_over_menu:
+                self.screen.fill((0, 0, 0))
+                self.main_menu.title('resources/fonts/title-game-over.png')   
             if self.flag_animation_transition:
-                if self.environment.game_over_menu:
-                    self.screen.fill((0, 0, 0))
                 # self.environment.fade(speed=2)
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
@@ -329,9 +350,7 @@ class Metal_soldier():
             
             ''' Si el soldado ha muerto actualizamos el scoreboard'''
             if self.soldier.update_indicators:
-                self.scoreboard.times_touched = self.scoreboard.prep_touched(self.soldier.times_touched)
-                self.scoreboard.hearts = self.scoreboard.prep_heart(self.soldier.hearts)
-                self.soldier.update_indicators = False
+                self.update_scoreboard()
                 
 
             self.enemies.update(self.current_time)
