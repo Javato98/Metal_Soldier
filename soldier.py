@@ -5,6 +5,7 @@ from settings import Settings
 from paths import Paths
 from environment import  Stairs
 
+
 class Soldier(Sprite):
     '''Creamos el personaje principal del juego'''
 
@@ -316,6 +317,7 @@ class Soldier(Sprite):
         self._be_covered(current_time)
         self._knife_attack(current_time)
         self._crawl_stairs(current_time)
+        self.fall_into_the_void()
         self._die(current_time)
 
 
@@ -366,6 +368,11 @@ class Soldier(Sprite):
 
         if self.drop == True:
             self.rect.y += 10
+
+    
+    def fall_into_the_void(self):
+        if self.rect.y > 800:
+            self.dead = True
 
 
 

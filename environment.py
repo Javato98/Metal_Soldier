@@ -1,6 +1,7 @@
 import pygame
 from coordenates_levels import Coordinates, Platform, Stairs
 from main_menu import Menu
+import sounds 
 
 class Environment():
     
@@ -9,6 +10,7 @@ class Environment():
         
         self.screen = ms_game.screen
         self.coordinates = Coordinates(ms_game)
+        self.sound = sounds.EffectsSound()
         
         self.platform_sprites = pygame.sprite.Group()
 
@@ -35,7 +37,7 @@ class Environment():
             pygame.display.update()
             pygame.time.delay(20)
 
-        pygame.time.delay(2000)
+        pygame.time.delay(4400)
 
 
     
@@ -68,26 +70,31 @@ class Environment():
 
     
     def game_over_animation(self):
+        game_over_sound = True
         self.game_over_menu = True
         initial_time = pygame.time.get_ticks() / 1000 
         initial_time = round(initial_time)
 
         while self.button_game_over:
+            self.sound.sound_game_over(game_over_sound)
+            game_over_sound = False
             current_time = pygame.time.get_ticks() / 1000 
             current_time = round(current_time)
             self.screen.fill((0, 0, 0))
             if current_time % 2 == 0:
                 self.screen.fill((0, 0, 0))
             else:
+                self.main_menu.create_buttons()
                 self.main_menu.title('resources/fonts/title-game-over.png')                   
 
             pygame.display.update()
             
             time_save = current_time - initial_time
             
-            if time_save > 2:
+            if time_save > 4:
                 self.game_over_menu = True
                 self.button_game_over = False
+        self.button_game_over = True
             
 
 

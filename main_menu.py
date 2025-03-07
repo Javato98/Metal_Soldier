@@ -1,9 +1,10 @@
 import pygame.font
+from paths import Paths
 
 
 class Menu():
     def __init__(self, ms_game):
-        self.button_texts = ["Start", "Instructions", "Exit"]
+        self.button_texts = ["Play", "Instructions", "Exit"]
         self.ms_game = ms_game
         self.screen = ms_game.screen
         self.screen_rect = self.screen.get_rect()
@@ -41,6 +42,74 @@ class Menu():
     def create_menu(self):
         for button in self.buttons:
             button.draw_button()
+
+
+    def show_instructions(self):
+        pygame.display.set_caption("Juego con Instrucciones")
+
+        # Colores
+        WHITE = (59, 86, 97) 
+        YELLOW = (255, 255, 58)
+
+        # Fuente
+        font = pygame.font.Font("resources/fonts/Retro Gaming.ttf", 30)
+        running = True
+
+        # Imagenes
+        def save_images_keyboard():
+            images_keys = []
+            paths_keys = ["left-right.png", "up.png", "down.png", "space.png", "letter-k.png"]
+            
+            for path in paths_keys:
+                image_key_path = Paths(f'resources\\Images keys instructions\\{path}').__str__()
+                image_key = pygame.image.load(image_key_path).convert_alpha()
+                images_keys.append(image_key)
+            return images_keys
+        
+        images_keys = save_images_keyboard()
+
+
+        while running:
+            self.screen.fill(WHITE)
+
+            # Texto de instrucciones
+            instructions = (
+                "Instrucciones del Juego:",
+                ("1. Usa las flechas para moverte", images_keys[0]),
+                ("2. Presiona UP para saltar", images_keys[1]),
+                ("3. Presiona DOWN para agacharte", images_keys[2]),
+                ("4. Presiona ESPACIO para disparar", images_keys[3]),
+                ("5. Presiona K para apuñalar", images_keys[4]),
+                "Presiona ESC para volver",
+            )
+
+            y = 60
+            x = 230
+
+            for line in instructions:
+                if isinstance(line, tuple):
+                    for item in line:
+                        if isinstance(item, str):
+                           text = font.render(item, True, YELLOW)
+                           self.screen.blit(text, (x, y))
+                        else:
+                            self.screen.blit(item, (980, y-30))
+
+                else:
+                    text = font.render(line, True, (255, 150, 0))
+                    self.screen.blit(text, (x-50, y))
+                y += 105
+
+            pygame.display.flip()
+
+            # Manejo de eventos
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:  # Volver al juego
+                        running = False
             
 
 
@@ -77,4 +146,4 @@ class Button():
         '''Dibuja un botón en blanco y luego el mensaje'''
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
-        
+

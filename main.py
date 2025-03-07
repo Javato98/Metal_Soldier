@@ -8,6 +8,7 @@ from environment import Environment, Levels
 from enemies import Enemy
 from main_menu import Menu
 from scoreboard import Scoreboard
+import sounds
 
 
 
@@ -26,6 +27,8 @@ class Metal_soldier():
         self.main_menu = Menu(self)
         self.clock = pygame.time.Clock()
         self.scoreboard = Scoreboard(self)
+        self.music = sounds.Music()
+        self.effect_sound = sounds.EffectsSound()
         
         self.platforms = self.levels.make_platforms()
         self.main_menu_buttons = self.main_menu.buttons
@@ -159,7 +162,8 @@ class Metal_soldier():
                         self.environment.game_over_menu = False
                         self.level_up()
 
-
+                    elif button == self.main_menu_buttons[1]:
+                        self.main_menu.show_instructions()
 # Tenemos que meter las instrucciones
                     elif button == self.main_menu_buttons[2]:
                         sys.exit()
@@ -200,6 +204,7 @@ class Metal_soldier():
                     character.time_last_shot = self.current_time
         else:
             self.create_bullet(character)
+            self.effect_sound.play_sound('Black Powder1.wav')
 
 
     def create_bullet(self, character):
@@ -247,7 +252,9 @@ class Metal_soldier():
     def level_up(self):
         self.level_number += 1
         self.levels = Levels(self, self.level_number)
-        # self.environment.fade_level(self.level_number)
+        self.music.handle_transition_songs()
+        self.environment.fade_level(self.level_number)
+        self.music.flag_level = True
         self.platforms = self.levels.make_platforms()
         self.create_characters()
 
@@ -298,9 +305,10 @@ class Metal_soldier():
 
     
     def game_over(self):
-
         if self.soldier.hearts < 1:
+            self.music.handle_transition_songs()
             self.environment.game_over_animation()
+            
 
     def update_scoreboard_new_game(self):
         if self.environment.game_over_menu:
@@ -327,6 +335,8 @@ class Metal_soldier():
         self.levels.background()
         self.game_over()
         self.update_scoreboard_new_game()
+        self.music.set_music_level(self.level_number)
+        
 
 
         if self.levels.level_flag == 0:
@@ -334,7 +344,7 @@ class Metal_soldier():
                 self.screen.fill((0, 0, 0))
                 self.main_menu.title('resources/fonts/title-game-over.png')   
             if self.flag_animation_transition:
-                # self.environment.fade(speed=2)
+                self.environment.fade(speed=2)
                 self.flag_animation_transition = False
             self.main_menu.create_menu()
         else:
