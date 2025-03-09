@@ -104,6 +104,7 @@ class Metal_soldier():
             if event.key == pygame.K_k:
                 self.soldier.knife_attack = True
                 self.soldier.frame_index = 1
+                self.effect_sound.play_sound('sword - StarNinjas\\sword.1.ogg')
 
             if event.key == pygame.K_SPACE:
                 self.fire_bullet(self.soldier)
@@ -164,7 +165,7 @@ class Metal_soldier():
 
                     elif button == self.main_menu_buttons[1]:
                         self.main_menu.show_instructions()
-# Tenemos que meter las instrucciones
+
                     elif button == self.main_menu_buttons[2]:
                         sys.exit()
 
@@ -204,7 +205,7 @@ class Metal_soldier():
                     character.time_last_shot = self.current_time
         else:
             self.create_bullet(character)
-            self.effect_sound.play_sound('Black Powder1.wav')
+            self.effect_sound.play_sound('Magnum1.wav')
 
 
     def create_bullet(self, character):
@@ -246,7 +247,10 @@ class Metal_soldier():
         self.bullet_kill()
         
         if len(self.enemies) <= 0:
-            self.level_up()
+            if self.level_number < 3:
+                self.level_up()
+            else:
+                self.environment.you_win_animation()
 
 
     def level_up(self):

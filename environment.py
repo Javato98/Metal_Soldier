@@ -2,6 +2,7 @@ import pygame
 from coordenates_levels import Coordinates, Platform, Stairs
 from main_menu import Menu
 import sounds 
+import sys
 
 class Environment():
     
@@ -95,6 +96,31 @@ class Environment():
                 self.game_over_menu = True
                 self.button_game_over = False
         self.button_game_over = True
+
+
+
+    def you_win_animation(self):
+        you_win_sound = True
+        initial_time = pygame.time.get_ticks() / 1000 
+        initial_time = round(initial_time)
+
+        while self.button_game_over:
+            self.sound.sound_you_win(you_win_sound)
+            you_win_sound = False
+            current_time = pygame.time.get_ticks() / 1000 
+            current_time = round(current_time)
+            self.screen.fill((0, 0, 0))
+            if current_time % 2 == 0:
+                self.screen.fill((0, 0, 0))
+            else:
+                self.main_menu.title('resources/fonts/You Win.png')                   
+
+            pygame.display.update()
+            
+            time_save = current_time - initial_time
+            
+            if time_save > 28:
+                sys.exit()
             
 
 

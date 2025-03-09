@@ -28,7 +28,7 @@ class Music():
             elif level == 2:
                 self.play_song('Funky.mp3')
             elif level == 3:
-                self.play_song('On fire.mp3')
+                self.play_song('Das Mortal.mp3')
             self.flag_level = False
 
     def handle_transition_songs(self):
@@ -40,24 +40,38 @@ class EffectsSound(Music):
     def __init__(self):
         self.relative_path = 'resources\\Sounds\\Effects Sound\\'
         self.voice_game_over_path = self.get_abs_path('Game Over Voice.mp3')
-        self.game_over_sound_path = self.get_abs_path('Game Over Sound 2.mp3')
+        self.game_over_sound_path = self.get_abs_path('Game Over Sound 3.mp3')
+        self.voice_you_win_path = self.get_abs_path('You Win Voice edit.mp3')
+        self.you_win_sound_path = self.get_abs_path('Steppin Up.mp3')
 
     def play_sound(self, sound):
         absolute_path_sound = self.get_abs_path(sound)
         sound = pygame.mixer.Sound(absolute_path_sound)
         sound.play()
     
+
     def sound_game_over(self, check_game_over):
-        check_finish_game_over_sound = self.is_finish_sound_game_over()
+        check_finish_game_over_sound = self.is_finish_sound()
         if check_game_over:
             pygame.mixer.music.load(self.game_over_sound_path)
             pygame.mixer.music.play()
         elif check_finish_game_over_sound:
             pygame.mixer.music.load(self.voice_game_over_path)
             pygame.mixer.music.play()
+
+
+    def sound_you_win(self, check_you_win):
+        check_finish_game_over_sound = self.is_finish_sound()
+        if check_you_win:
+            pygame.mixer.music.load(self.voice_you_win_path)
+            pygame.mixer.music.play()
+        elif check_finish_game_over_sound:
+            pygame.mixer.music.load(self.you_win_sound_path)
+            pygame.mixer.music.play()
+
         
 
-    def is_finish_sound_game_over(self):
+    def is_finish_sound(self):
         if not pygame.mixer.music.get_busy():
             return True
 
