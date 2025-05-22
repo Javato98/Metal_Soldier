@@ -104,7 +104,7 @@ class Metal_soldier():
             if event.key == pygame.K_k:
                 self.soldier.knife_attack = True
                 self.soldier.frame_index = 1
-                self.effect_sound.play_sound('sword - StarNinjas\\sword.1.ogg')
+                self.effect_sound.play_sound('sword.ogg')
 
             if event.key == pygame.K_SPACE:
                 self.fire_bullet(self.soldier)
