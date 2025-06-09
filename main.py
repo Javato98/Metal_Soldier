@@ -1,3 +1,5 @@
+# "Algunos recursos gráficos utilizados en este videojuego fueron descargados de la plataforma GameArt2D.com durante el desarrollo inicial (julio-septiembre 2024). Todos los derechos pertenecen a sus respectivos autores. En caso de identificación de los autores concretos, se procederá a su atribución específica."
+
 import pygame
 import sys
 

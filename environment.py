@@ -222,6 +222,8 @@ class Levels(Environment):
 
         if self.level_flag == 1:
             self.repeat(self.coordinates.background_cave, 1, 0, 310)
+        elif self.level_flag == 2:
+            self.repeat(self.coordinates.background_cave2, 1, -102, 305)
         self.flag_soil = False
         
 

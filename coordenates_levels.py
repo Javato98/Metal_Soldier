@@ -187,9 +187,6 @@ class Coordinates(EnvironmentFrames):
 
         background = [
 
-            # background
-            (self.background_cave2, 1, -102, 305),
-
             # Platform 1
             (self.wood_middle2, 2, 520, 160,'y'),
             (self.wood_middle2, 12, 560, 220,'y'),
@@ -204,7 +201,6 @@ class Coordinates(EnvironmentFrames):
             (self.land_middle1, 12, 560, 160,'y'),
             (self.land_middle1, 12, 560, 180,'y'),
             (self.land_middle1, 12, 560, 200,'y'),
-            (self.border_cave_right, 25, 320, 320, 'y'),
 
             #platform2
             (self.land_middle0, 16, 480, 400, 'y'),
@@ -359,6 +355,10 @@ class Coordinates(EnvironmentFrames):
             (self.land_up1, 10, 460, 60)
         ]
 
+        platform11 = [
+            (self.border_cave_right, 25, 320, 320, 'y')
+        ]
+
         stairs = [
             (self.stairs, 7, 300, 40, 'y'),
         ]
@@ -388,6 +388,7 @@ class Coordinates(EnvironmentFrames):
             'platform8' : platform8,
             'platform9' : platform9,
             'platform10' : platform10,
+            'platform11' : platform11,
             'stairs' : stairs,
             'stairs2' : stairs2,
             'stairs3' : stairs3
